@@ -6,10 +6,16 @@ internal abstract class AccountBase
     protected decimal StartingBalance { get; set; } = 0;
     public string AccountName { get; set; } = ""; //Hur man får den gröna linjen att försvinna//
     public string AccountNumber { get; set; } = "";
-
-    internal decimal InterestRate { get; set; } = 0;
+    internal decimal InterestRate { get; set; } = 2;
 
     protected List<BankTransaction> bankTransactions = new List<BankTransaction>();
+
+
+    public decimal CalculateInterestRate(AccountBase interestRate)
+    {
+         return InterestRate;
+    }
+
 
     internal abstract decimal Balance();
 

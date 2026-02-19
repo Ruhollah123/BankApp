@@ -9,12 +9,13 @@ internal class Bank
     internal void AddAccount(AccountBase account)
     {
         accounts.Add(account);
+        //Hej!
     }
 
 
     public Bank()
     {
-        accounts.Add(new BankAccount("Markus", "897"));
+        accounts.Add(new BankAccount("Markus", "897", 2));
     }
 
     internal void RemoveAccount(Guid accountId)
@@ -73,7 +74,7 @@ internal class Bank
                             int.TryParse(Console.ReadLine(), out int kontoNummer);
 
 
-                            AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString());
+                            AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2);
                             nyaTillägg.AddAccount(nyttKonto);
                             Console.WriteLine("Kontot har skapats");
                             Console.Write("Tryck Enter för att fortsätta till menyn...");
@@ -90,7 +91,7 @@ internal class Bank
                             Console.Write("Ange Kontonummer: ");
                             int.TryParse(Console.ReadLine(), out int UddevallaKontoNummer);
 
-                            AccountBase förUddevalla = new BankAccount(uddevallaKonto, UddevallaKontoNummer.ToString());
+                            AccountBase förUddevalla = new BankAccount(uddevallaKonto, UddevallaKontoNummer.ToString(), 2);
                             skapandet.AddAccount(förUddevalla);
 
                             Console.WriteLine("Uddevalla-Kontot har skapats");
@@ -108,7 +109,7 @@ internal class Bank
                             Console.Write("Ange Kontonummer: ");
                             int.TryParse(Console.ReadLine(), out int iskKontoNummer);
 
-                            AccountBase förIsk = new BankAccount(iskKonto, iskKontoNummer.ToString());
+                            AccountBase förIsk = new BankAccount(iskKonto, iskKontoNummer.ToString(), 2);
                             sammaSak.AddAccount(förIsk);
 
                             Console.WriteLine("Isk-Kontot har skapats");
