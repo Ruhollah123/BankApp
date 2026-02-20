@@ -1,12 +1,10 @@
-﻿using BankApp.Accounts;
-using BankApp.Base;
-
-namespace BankApp;
+﻿namespace BankApp;
 
 internal class Program
 {
     static void Main(string[] args)
     {
-        Bank.ShowBankMenu();
+        Bank bank = new Bank();
+        Bank.ShowBankMenu(bank);
     }
 }

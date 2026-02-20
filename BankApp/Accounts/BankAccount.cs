@@ -14,6 +14,8 @@ internal class BankAccount : AccountBase
         InterestRate = interestRate;
     }
 
+
+
     internal override decimal Balance()
     {
         var t = bankTransactions.Sum(x => x.Amount);

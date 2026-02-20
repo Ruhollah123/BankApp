@@ -11,11 +11,46 @@ internal abstract class AccountBase
     protected List<BankTransaction> bankTransactions = new List<BankTransaction>();
 
 
-    public decimal CalculateInterestRate(AccountBase interestRate)
+    public List<BankTransaction> SeedTransactions()
     {
-         return InterestRate;
+        bankTransactions.Add(new BankTransaction { Amount = 5000, TransactionalDate = new DateTime(2025, 1, 1) });
+        bankTransactions.Add(new BankTransaction { Amount = 8000, TransactionalDate = new DateTime(2025, 2, 18) });
+        bankTransactions.Add(new BankTransaction { Amount = 4000, TransactionalDate = new DateTime(2025, 3, 25) });
+        bankTransactions.Add(new BankTransaction { Amount = 3000, TransactionalDate = new DateTime(2025, 4, 11) });
+        bankTransactions.Add(new BankTransaction { Amount = 2000, TransactionalDate = new DateTime(2025, 5, 4) });
+        bankTransactions.Add(new BankTransaction { Amount = 1000, TransactionalDate = new DateTime(2025, 6, 7) });
+        bankTransactions.Add(new BankTransaction { Amount = 1500, TransactionalDate = new DateTime(2025, 7, 2) });
+        bankTransactions.Add(new BankTransaction { Amount = 6000, TransactionalDate = new DateTime(2025, 8, 14) });
+        bankTransactions.Add(new BankTransaction { Amount = 7000, TransactionalDate = new DateTime(2025, 9, 9) });
+        bankTransactions.Add(new BankTransaction { Amount = 9000, TransactionalDate = new DateTime(2025, 11, 15) });
+
+        return bankTransactions;
     }
 
+    public decimal CalculateInterestRate()
+    {
+        decimal totalInterestRate = 0;
+
+        DateTime startOfYear = new DateTime(2025, 1, 1);
+        DateTime endOfYear = new DateTime(2025, 12, 31);
+
+        for (DateTime day = startOfYear; day <= endOfYear; day = day.AddDays(1))
+        {
+            decimal balanceForTheDay = Balance();
+
+            foreach (var transaction in bankTransactions)
+            {
+                if (transaction.TransactionalDate <= day)
+                {
+                    balanceForTheDay += transaction.Amount;
+                }
+            }
+
+            totalInterestRate += balanceForTheDay * (InterestRate / 100 / 365);
+        }
+
+        return totalInterestRate;
+    }
 
     internal abstract decimal Balance();
 
@@ -27,7 +62,7 @@ internal abstract class AccountBase
         }
         else if (amount < 0)
         {
-            Console.WriteLine("Inkorrekt nummer, måste vara ett positiv siffra");        
+            Console.WriteLine("Inkorrekt nummer, måste vara ett positiv siffra");
         }
         else
         {
@@ -61,7 +96,5 @@ internal abstract class AccountBase
 
             bankTransactions.Add(t);
         }
-
     }
 }
-

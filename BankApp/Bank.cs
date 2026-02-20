@@ -9,13 +9,7 @@ internal class Bank
     internal void AddAccount(AccountBase account)
     {
         accounts.Add(account);
-        //Hej!
-    }
 
-
-    public Bank()
-    {
-        accounts.Add(new BankAccount("Markus", "897", 2));
     }
 
     internal void RemoveAccount(Guid accountId)
@@ -33,7 +27,7 @@ internal class Bank
         return accounts;
     }
 
-    public static void ShowBankMenu()
+    public static void ShowBankMenu(Bank bank)
     {
         bool running = true;
         while (running)
@@ -65,7 +59,6 @@ internal class Bank
                     switch (skapaKonto)
                     {
                         case "1":
-                            Bank nyaTillägg = new Bank();
                             Console.Clear();
                             Console.Write("Ange Kontonamn: ");
                             var kontoNamn = Console.ReadLine();
@@ -75,7 +68,7 @@ internal class Bank
 
 
                             AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2);
-                            nyaTillägg.AddAccount(nyttKonto);
+                            bank.AddAccount(nyttKonto);
                             Console.WriteLine("Kontot har skapats");
                             Console.Write("Tryck Enter för att fortsätta till menyn...");
                             Console.ReadKey();
@@ -83,7 +76,7 @@ internal class Bank
 
                         case "2":
                             AccountBase uddevallaKontot;
-                            Bank skapandet = new Bank();
+
                             Console.Clear();
                             Console.Write("Ange Kontonamn: ");
                             var uddevallaKonto = Console.ReadLine();
@@ -92,7 +85,7 @@ internal class Bank
                             int.TryParse(Console.ReadLine(), out int UddevallaKontoNummer);
 
                             AccountBase förUddevalla = new BankAccount(uddevallaKonto, UddevallaKontoNummer.ToString(), 2);
-                            skapandet.AddAccount(förUddevalla);
+                            bank.AddAccount(förUddevalla);
 
                             Console.WriteLine("Uddevalla-Kontot har skapats");
                             Console.Write("Tryck Enter för att fortsätta till menyn...");
@@ -101,7 +94,6 @@ internal class Bank
 
                         case "3":
                             AccountBase iskKontot;
-                            Bank sammaSak = new Bank();
                             Console.Clear();
                             Console.Write("Ange Kontonamn: ");
                             var iskKonto = Console.ReadLine();
@@ -110,7 +102,7 @@ internal class Bank
                             int.TryParse(Console.ReadLine(), out int iskKontoNummer);
 
                             AccountBase förIsk = new BankAccount(iskKonto, iskKontoNummer.ToString(), 2);
-                            sammaSak.AddAccount(förIsk);
+                            bank.AddAccount(förIsk);
 
                             Console.WriteLine("Isk-Kontot har skapats");
                             Console.Write("Tryck Enter för att fortsätta till menyn...");
@@ -121,9 +113,6 @@ internal class Bank
 
                 case "2":
                     Console.Clear();
-
-                    var bank = new Bank();
-
 
                     if (!bank.accounts.Any())
                     {
@@ -155,16 +144,15 @@ internal class Bank
                     {
                         Console.WriteLine("Det angivna kontonumret finns inte");
                         Console.Write("Tryck Enter för att fortsätta till menyn...");
+                        Console.ReadKey();
                     }
-
-                    Console.ReadKey();
                     break;
 
 
                 case "3":
                     Console.Clear();
-                    Bank banken = new Bank();
-                    if (!banken.accounts.Any())
+
+                    if (!bank.accounts.Any())
                     {
                         Console.WriteLine("Du har inga aktiva konton än");
                         Console.Write("Tryck Enter för att fortsätta till menyn...");
@@ -172,11 +160,12 @@ internal class Bank
                         continue;
                     }
 
-                    foreach (var account in banken.accounts)
+                    foreach (var account in bank.accounts)
                     {
                         Console.WriteLine($"Namn: {account.AccountName}");
                         Console.WriteLine($"Kontonummer: {account.AccountNumber}");
                         Console.WriteLine($"Saldo: {account.Balance()}");
+                        Console.WriteLine($"Ränta: {account.SeedTransactions}%"); /*Eller ha en siffra inuti argumenten här inuti parentesen men då får du ändra där uppe, ena är att du hämtar ett konto och den andra en siffra */
                         Console.WriteLine("-----------------------------");
                     }
 
@@ -186,8 +175,7 @@ internal class Bank
                 case "4":
                     Console.Clear();
 
-                    Bank bankerna = new Bank();
-                    if (!bankerna.accounts.Any())
+                    if (!bank.accounts.Any())
                     {
                         Console.WriteLine("Ingen konto har registrerats ännu");
                         Console.Write("Tryck Enter för att fortsätta till menyn...");
@@ -197,7 +185,7 @@ internal class Bank
 
 
                     Console.WriteLine("Alla aktiva konton: ");
-                    foreach (var konton in bankerna.accounts)
+                    foreach (var konton in bank.accounts)
                     {
                         Console.WriteLine($"\nNamn: {konton.AccountName}, Kontonummer: {konton.AccountNumber}");
                     }
@@ -205,7 +193,7 @@ internal class Bank
                     Console.Write("\nSkriv någon av följande Konto-nummer du vill hantera: ");
                     var hantering = Console.ReadLine();
 
-                    var kontona = bankerna.accounts.FirstOrDefault(x => x.AccountNumber == hantering);
+                    var kontona = bank.accounts.FirstOrDefault(x => x.AccountNumber == hantering);
 
                     if (kontona != null)
                     {
@@ -214,6 +202,7 @@ internal class Bank
                         Console.WriteLine("1. Insättning");
                         Console.WriteLine("2. Uttag");
                         Console.WriteLine("3. Visa saldo");
+                        Console.WriteLine("4. Insättningar");
                         Console.Write("Välj vänligen en av alternativen ovan: ");
                         int.TryParse(Console.ReadLine(), out int inputs);
 
@@ -241,6 +230,26 @@ internal class Bank
 
                                 Console.WriteLine($"\nDitt saldo är: {kontona.Balance()}");
                                 Console.Write("Tryck Enter för att fortsätta till menyn...");
+                                Console.ReadKey();
+                                break;
+
+                            case 4:
+                                Console.Clear();
+
+                                Console.WriteLine("Alla insättningar under året: ");
+
+                                var myAccount = new BankAccount("", "", 2);
+
+                                myAccount.SeedTransactions();
+
+                                foreach (var t in myAccount.SeedTransactions())
+                                {
+                                    Console.WriteLine($"\nBelopp: {t.Amount}kr");
+                                    Console.WriteLine($"Datum: {t.TransactionalDate}");
+                                }
+                                    Console.WriteLine($"Ränta: {myAccount.CalculateInterestRate()}kr");
+
+                                Console.Write("\nTryck Enter för att fortsätta till menyn...");
                                 Console.ReadKey();
                                 break;
                         }
