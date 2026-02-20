@@ -49,6 +49,8 @@ internal class Bank
 
             var input = Console.ReadLine();
 
+
+            // Switchen kan förbättras genom att lägga in metoder istället för att ha all logik i switchen.
             switch (input)
             {
                 case "1":
@@ -61,6 +63,9 @@ internal class Bank
                     Console.Write("Vilken typ av konto vill du skapa: ");
                     var skapaKonto = Console.ReadLine();
 
+                    // Du kan kan istället spara kontotyp-valet och fråga om kontonamn och kontonummer.
+                    // Efter att namn och nummer är ifyllt så kan du lägga in switchen och skapa konto baserat på det valda kontotypen.
+                    // Om du vill ha en referens så kolla på min kod.
                     switch (skapaKonto)
                     {
                         case "1":
@@ -73,7 +78,7 @@ internal class Bank
                             int.TryParse(Console.ReadLine(), out int kontoNummer);
 
 
-                            AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString());
+                            AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString()); // "possibly null reference" på kontoNamn.
                             nyaTillägg.AddAccount(nyttKonto);
                             Console.WriteLine("Kontot har skapats");
                             Console.Write("Tryck Enter för att fortsätta till menyn...");
@@ -81,7 +86,7 @@ internal class Bank
                             break;
 
                         case "2":
-                            AccountBase uddevallaKontot;
+                            AccountBase uddevallaKontot; // Oanvänd variabel, kan tas bort.
                             Bank skapandet = new Bank();
                             Console.Clear();
                             Console.Write("Ange Kontonamn: ");
@@ -90,7 +95,7 @@ internal class Bank
                             Console.Write("Ange Kontonummer: ");
                             int.TryParse(Console.ReadLine(), out int UddevallaKontoNummer);
 
-                            AccountBase förUddevalla = new BankAccount(uddevallaKonto, UddevallaKontoNummer.ToString());
+                            AccountBase förUddevalla = new BankAccount(uddevallaKonto, UddevallaKontoNummer.ToString()); // "possibly null reference" på uddevallaKonto.
                             skapandet.AddAccount(förUddevalla);
 
                             Console.WriteLine("Uddevalla-Kontot har skapats");
@@ -99,7 +104,7 @@ internal class Bank
                             break;
 
                         case "3":
-                            AccountBase iskKontot;
+                            AccountBase iskKontot; // Oanvänd variabel, kan tas bort.
                             Bank sammaSak = new Bank();
                             Console.Clear();
                             Console.Write("Ange Kontonamn: ");
@@ -108,7 +113,7 @@ internal class Bank
                             Console.Write("Ange Kontonummer: ");
                             int.TryParse(Console.ReadLine(), out int iskKontoNummer);
 
-                            AccountBase förIsk = new BankAccount(iskKonto, iskKontoNummer.ToString());
+                            AccountBase förIsk = new BankAccount(iskKonto, iskKontoNummer.ToString()); // "possibly null reference" på iskKonto.
                             sammaSak.AddAccount(förIsk);
 
                             Console.WriteLine("Isk-Kontot har skapats");
@@ -121,8 +126,21 @@ internal class Bank
                 case "2":
                     Console.Clear();
 
-                    var bank = new Bank();
+                    // Du skapar en ny bank här?? Detta skapar en ny instans av bank.cs.
+                    // Det du vill göra är att använda den bank-instansen som redan finns, där alla konton är sparade.
+                    // Den instansen som finns skapades i program.cs och du behöver inte skapa en ny här eller någon annanstans.
+                    var bank = new Bank(); 
 
+
+                    // Detta fungerar men är inte optimalt. Istället testa använda List av konton som vi har,
+                    // och visa alla konton därifrån. Eftersom det är en list så kan du använda index (0, 1, 2 ,3, 4) med en
+                    // for-loop. Då kan du också använda indexet för att välja ett konto lättare exempelvis 1 eller 2 eller 3 osv.
+                    // Här är ett exempel från min kod på hur du kan göra det:
+                    
+                    // for (int i = 0; i < accounts.Count; i++)
+                    // {
+                    //     Console.WriteLine($"{i + 1}. Kontonamn: {Accounts[i].AccountName}, Kontonummer: {Accounts[i].AccountNumber}");
+                    // }
 
                     if (!bank.accounts.Any())
                     {
@@ -185,7 +203,7 @@ internal class Bank
                 case "4":
                     Console.Clear();
 
-                    Bank bankerna = new Bank();
+                    Bank bankerna = new Bank(); // ny instans?
                     if (!bankerna.accounts.Any())
                     {
                         Console.WriteLine("Ingen konto har registrerats ännu");
@@ -216,6 +234,8 @@ internal class Bank
                         Console.Write("Välj vänligen en av alternativen ovan: ");
                         int.TryParse(Console.ReadLine(), out int inputs);
 
+                        
+                        // Här kan du använda en while-loop för att låta användaren göra flera val utan att gå tillbaka till huvudmenyn.
                         switch (inputs)
                         {
                             case 1:
