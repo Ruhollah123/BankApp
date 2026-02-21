@@ -5,6 +5,7 @@ namespace BankApp;
 
 internal class Bank
 {
+    /*Tashakor*/
     /*Farzad
          * Nested switch-satser skapar onödig komplexitet och försämrar kodens läsbarhet.
          * Användning av TryParse utan att kontrollera resultatet kan leda till att ogiltig indata tyst accepteras.
