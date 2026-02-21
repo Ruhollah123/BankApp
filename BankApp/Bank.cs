@@ -5,6 +5,15 @@ namespace BankApp;
 
 internal class Bank
 {
+    /*Farzad
+         * Nested switch-satser skapar onödig komplexitet och försämrar kodens läsbarhet.
+         * Användning av TryParse utan att kontrollera resultatet kan leda till att ogiltig indata tyst accepteras.
+         * Val av konto sker via AccountNumber, men användarens prompt refererar till ID, vilket skapar logisk inkonsekvens.
+         * RemoveAccount arbetar med Guid, men användarinmatningen är en sträng, vilket leder till en typmässig och logisk inkonsekvens.
+         * Variabelnamnen är inkonsekventa och kan upplevas som förvirrande.
+         * Det finns onödig kodduplicering vid skapandet av konton, vilket bryter mot DRY-principen och försämrar underhållbarheten.
+         * Kontohantering bör flyttas till en separat metod för bättre struktur och ansvarsfördelning
+         */
     internal List<AccountBase> accounts = new List<AccountBase>();
     internal void AddAccount(AccountBase account)
     {
@@ -34,6 +43,7 @@ internal class Bank
 
     public static void ShowBankMenu()
     {
+        
         bool running = true;
         while (running)
         {
