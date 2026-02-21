@@ -14,15 +14,15 @@ internal abstract class AccountBase
     public List<BankTransaction> SeedTransactions()
     {
         bankTransactions.Add(new BankTransaction { Amount = 5000, TransactionalDate = new DateTime(2025, 1, 1) });
-        bankTransactions.Add(new BankTransaction { Amount = 8000, TransactionalDate = new DateTime(2025, 2, 18) });
+        bankTransactions.Add(new BankTransaction { Amount = 12999, TransactionalDate = new DateTime(2025, 2, 18) });
         bankTransactions.Add(new BankTransaction { Amount = 4000, TransactionalDate = new DateTime(2025, 3, 25) });
         bankTransactions.Add(new BankTransaction { Amount = 3000, TransactionalDate = new DateTime(2025, 4, 11) });
         bankTransactions.Add(new BankTransaction { Amount = 2000, TransactionalDate = new DateTime(2025, 5, 4) });
         bankTransactions.Add(new BankTransaction { Amount = 1000, TransactionalDate = new DateTime(2025, 6, 7) });
         bankTransactions.Add(new BankTransaction { Amount = 1500, TransactionalDate = new DateTime(2025, 7, 2) });
-        bankTransactions.Add(new BankTransaction { Amount = 6000, TransactionalDate = new DateTime(2025, 8, 14) });
+        bankTransactions.Add(new BankTransaction { Amount = 8905, TransactionalDate = new DateTime(2025, 8, 14) });
         bankTransactions.Add(new BankTransaction { Amount = 7000, TransactionalDate = new DateTime(2025, 9, 9) });
-        bankTransactions.Add(new BankTransaction { Amount = 9000, TransactionalDate = new DateTime(2025, 11, 15) });
+        bankTransactions.Add(new BankTransaction { Amount = 15000, TransactionalDate = new DateTime(2025, 11, 15) });
 
         return bankTransactions;
     }

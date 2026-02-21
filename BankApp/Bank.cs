@@ -41,7 +41,6 @@ internal class Bank
             Console.WriteLine("5. Stäng");
 
             Console.Write("Ange någon av alternativen ovan: ");
-
             var input = Console.ReadLine();
 
             switch (input)
@@ -55,6 +54,15 @@ internal class Bank
 
                     Console.Write("Vilken typ av konto vill du skapa: ");
                     var skapaKonto = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(skapaKonto))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Fel inmatning!");
+                        Console.Write("Försök igen senare...");
+                        Console.ReadKey();
+                        break;
+                    }
 
                     switch (skapaKonto)
                     {
@@ -75,6 +83,7 @@ internal class Bank
                             break;
 
                         case "2":
+
                             AccountBase uddevallaKontot;
 
                             Console.Clear();
@@ -109,7 +118,9 @@ internal class Bank
                             Console.ReadKey();
                             break;
                     }
+
                     break;
+
 
                 case "2":
                     Console.Clear();
@@ -165,7 +176,7 @@ internal class Bank
                         Console.WriteLine($"Namn: {account.AccountName}");
                         Console.WriteLine($"Kontonummer: {account.AccountNumber}");
                         Console.WriteLine($"Saldo: {account.Balance()}");
-                        Console.WriteLine($"Ränta: {account.SeedTransactions}%"); /*Eller ha en siffra inuti argumenten här inuti parentesen men då får du ändra där uppe, ena är att du hämtar ett konto och den andra en siffra */
+                        Console.WriteLine($"Ränta: {Math.Round(account.CalculateInterestRate(), 2)}kr"); /*Eller ha en siffra inuti argumenten här inuti parentesen men då får du ändra där uppe, ena är att du hämtar ett konto och den andra en siffra */
                         Console.WriteLine("-----------------------------");
                     }
 
@@ -247,8 +258,8 @@ internal class Bank
                                     Console.WriteLine($"\nBelopp: {t.Amount}kr");
                                     Console.WriteLine($"Datum: {t.TransactionalDate}");
                                 }
-                                    Console.WriteLine($"Ränta: {myAccount.CalculateInterestRate()}kr");
 
+                                Console.WriteLine($"\nRänta: {Math.Round(myAccount.CalculateInterestRate(), 2)}kr");
                                 Console.Write("\nTryck Enter för att fortsätta till menyn...");
                                 Console.ReadKey();
                                 break;
