@@ -9,7 +9,7 @@ internal abstract class AccountBase
      * Withdraw saknar kontroll för negativa eller nollbelopp. Ett negativt belopp kan i praktiken vända beteendet och orsaka logiska fel.
      
     */
-    internal Guid Id { get; set; } = Guid.NewGuid();
+    internal Guid Id { get; } = Guid.NewGuid();
     protected decimal StartingBalance { get; } = 0;
     public string AccountName { get; set; } = ""; //Hur man får den gröna linjen att försvinna//
     public string AccountNumber { get; set; } = "";
@@ -105,4 +105,45 @@ internal abstract class AccountBase
             bankTransactions.Add(t);
         }
     }
+
+
+    public void RemoveAccount(string input)
+    {
+        Console.Clear();
+
+        var bank = new Bank();
+        if (!bank.accounts.Any())
+        {
+            Console.WriteLine("Du har inga aktiva konton än");
+            Console.Write("Tryck Enter för att fortsätta till menyn...");
+            Console.ReadKey();
+        }
+
+        foreach (var konto in bank.accounts)
+        {
+            Console.WriteLine($"Kontonamn: {konto.AccountName}, Kontonummer: {konto.AccountNumber}");
+        }
+
+
+        Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
+
+        var taBort = Console.ReadLine();
+
+        var kontoTaBort = bank.accounts.FirstOrDefault(z => z.AccountNumber == taBort);
+
+        if (kontoTaBort != null)
+        {
+            bank.RemoveAccount(kontoTaBort.Id);
+            Console.WriteLine("Kontot har succesivt tagits bort!");
+            Console.Write("Tryck Enter för att fortsätta till menyn...");
+        }
+        else
+        {
+            Console.WriteLine("Det angivna kontonumret finns inte");
+            Console.Write("Tryck Enter för att fortsätta till menyn...");
+            Console.ReadKey();
+        }
+    }
+
+
 }

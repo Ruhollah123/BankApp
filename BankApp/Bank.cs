@@ -96,40 +96,8 @@ internal class Bank
 
 
                 case "2":
-                    Console.Clear();
-
-                    if (!bank.accounts.Any())
-                    {
-                        Console.WriteLine("Du har inga aktiva konton än");
-                        Console.Write("Tryck Enter för att fortsätta till menyn...");
-                        Console.ReadKey();
-                        continue;
-                    }
-
-                    foreach (var konto in bank.accounts)
-                    {
-                        Console.WriteLine($"Kontonamn: {konto.AccountName}, Kontonummer: {konto.AccountNumber}");
-                    }
-
-
-                    Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
-
-                    var taBort = Console.ReadLine();
-
-                    var kontoTaBort = bank.accounts.FirstOrDefault(z => z.AccountNumber == taBort);
-
-                    if (kontoTaBort != null)
-                    {
-                        bank.RemoveAccount(kontoTaBort.Id);
-                        Console.WriteLine("Kontot har succesivt tagits bort!");
-                        Console.Write("Tryck Enter för att fortsätta till menyn...");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Det angivna kontonumret finns inte");
-                        Console.Write("Tryck Enter för att fortsätta till menyn...");
-                        Console.ReadKey();
-                    }
+                    var removingAccounts = new Bank();
+                    removingAccounts.RemoveAccount(Guid.NewGuid());
                     break;
 
                 case "3":

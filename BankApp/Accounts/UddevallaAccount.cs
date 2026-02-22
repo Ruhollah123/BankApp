@@ -15,7 +15,7 @@ internal class UddevallaAccount : AccountBase
 
     public void AccountForUddevalla(string skapaKonto)
     {
-        var iskAccount = new IskAccount();
+        var iskAccount = new Bank();
 
         Console.Clear();
         Console.Write("Ange Kontonamn: ");
