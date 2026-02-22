@@ -1,6 +1,5 @@
 ﻿using BankApp.Accounts;
 using BankApp.Base;
-using System.Security.Cryptography.X509Certificates;
 
 namespace BankApp;
 
@@ -78,60 +77,21 @@ internal class Bank
                     switch (skapaKonto)
                     {
                         case "1":
-                            Bank nyaTillägg = new Bank();
-                            Console.Clear();
-                            Console.Write("Ange Kontonamn: ");
-                            var kontoNamn = Console.ReadLine();
-
-                            Console.Write("Ange Kontonummer: ");
-                            int.TryParse(Console.ReadLine(), out int kontoNummer);
-
-
-                            AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString()); // "possibly null reference" på kontoNamn.
-                            nyaTillägg.AddAccount(nyttKonto);
-                            Console.WriteLine("Kontot har skapats");
-                            Console.Write("Tryck Enter för att fortsätta till menyn...");
-                            Console.ReadKey();
-                            Console.ReadKey();
+                            var bankAccount = new BankAccount();
+                            bankAccount.BankKonto(skapaKonto);
                             break;
 
-                            AccountBase uddevallaKontot; // Oanvänd variabel, kan tas bort.
-                            Bank skapandet = new Bank();
-                            Console.Clear();
-                            Console.Write("Ange Kontonamn: ");
-                            var uddevallaKonto = Console.ReadLine();
-
-                            Console.Write("Ange Kontonummer: ");
-                            int.TryParse(Console.ReadLine(), out int UddevallaKontoNummer);
-
-                            AccountBase förUddevalla = new BankAccount(uddevallaKonto, UddevallaKontoNummer.ToString(), 2);
-                            bank.AddAccount(förUddevalla);
-
-                            Console.WriteLine("Uddevalla-Kontot har skapats");
-                            Console.Write("Tryck Enter för att fortsätta till menyn...");
-                            Console.ReadKey();
+                        case "2":
+                            var uddevallaAccount = new UddevallaAccount();
+                            uddevallaAccount.AccountForUddevalla(skapaKonto);
                             break;
 
-                            AccountBase iskKontot; // Oanvänd variabel, kan tas bort.
-                            Bank sammaSak = new Bank();
-                            AccountBase iskKontot; // Oanvänd variabel, kan tas bort.
-                            Bank sammaSak = new Bank();
-                            Console.Clear();
-                            Console.Write("Ange Kontonamn: ");
-                            var iskKonto = Console.ReadLine();
 
-                            Console.Write("Ange Kontonummer: ");
-                            int.TryParse(Console.ReadLine(), out int iskKontoNummer);
-
-                            AccountBase förIsk = new BankAccount(iskKonto, iskKontoNummer.ToString(), 2);
-                            bank.AddAccount(förIsk);
-
-                            Console.WriteLine("Isk-Kontot har skapats");
-                            Console.Write("Tryck Enter för att fortsätta till menyn...");
-                            Console.ReadKey();
+                        case "3":
+                            var iskAccount = new IskAccount();
+                            iskAccount.AccountForIsk(skapaKonto);
                             break;
                     }
-
                     break;
 
 
@@ -171,7 +131,6 @@ internal class Bank
                         Console.ReadKey();
                     }
                     break;
-
 
                 case "3":
                     Console.Clear();

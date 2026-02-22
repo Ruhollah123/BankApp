@@ -15,9 +15,6 @@ internal class BankAccount : AccountBase
         
     }
 
-
-
-
     internal override decimal Balance()
     {
         var t = bankTransactions.Sum(x => x.Amount);
@@ -35,7 +32,7 @@ internal class BankAccount : AccountBase
         int.TryParse(Console.ReadLine(), out int kontoNummer);
 
 
-        AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString()); // "possibly null reference" på kontoNamn.
+        AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); // "possibly null reference" på kontoNamn.
         nyaTillägg.AddAccount(nyttKonto);
         Console.WriteLine("Kontot har skapats");
         Console.Write("Tryck Enter för att fortsätta till menyn...");
