@@ -1,10 +1,21 @@
 ﻿using BankApp.Accounts;
 using BankApp.Base;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BankApp;
 
 internal class Bank
 {
+    /*Tashakor*/
+    /*Farzad
+         * Nested switch-satser skapar onödig komplexitet och försämrar kodens läsbarhet.
+         * Användning av TryParse utan att kontrollera resultatet kan leda till att ogiltig indata tyst accepteras.
+         * Val av konto sker via AccountNumber, men användarens prompt refererar till ID, vilket skapar logisk inkonsekvens.
+         * RemoveAccount arbetar med Guid, men användarinmatningen är en sträng, vilket leder till en typmässig och logisk inkonsekvens.
+         * Variabelnamnen är inkonsekventa och kan upplevas som förvirrande.
+         * Det finns onödig kodduplicering vid skapandet av konton, vilket bryter mot DRY-principen och försämrar underhållbarheten.
+         * Kontohantering bör flyttas till en separat metod för bättre struktur och ansvarsfördelning
+         */
     internal List<AccountBase> accounts = new List<AccountBase>();
     internal void AddAccount(AccountBase account)
     {
@@ -67,6 +78,7 @@ internal class Bank
                     switch (skapaKonto)
                     {
                         case "1":
+                            Bank nyaTillägg = new Bank();
                             Console.Clear();
                             Console.Write("Ange Kontonamn: ");
                             var kontoNamn = Console.ReadLine();
@@ -75,17 +87,16 @@ internal class Bank
                             int.TryParse(Console.ReadLine(), out int kontoNummer);
 
 
-                            AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2);
-                            bank.AddAccount(nyttKonto);
+                            AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString()); // "possibly null reference" på kontoNamn.
+                            nyaTillägg.AddAccount(nyttKonto);
                             Console.WriteLine("Kontot har skapats");
                             Console.Write("Tryck Enter för att fortsätta till menyn...");
                             Console.ReadKey();
+                            Console.ReadKey();
                             break;
 
-                        case "2":
-
-                            AccountBase uddevallaKontot;
-
+                            AccountBase uddevallaKontot; // Oanvänd variabel, kan tas bort.
+                            Bank skapandet = new Bank();
                             Console.Clear();
                             Console.Write("Ange Kontonamn: ");
                             var uddevallaKonto = Console.ReadLine();
@@ -101,8 +112,10 @@ internal class Bank
                             Console.ReadKey();
                             break;
 
-                        case "3":
-                            AccountBase iskKontot;
+                            AccountBase iskKontot; // Oanvänd variabel, kan tas bort.
+                            Bank sammaSak = new Bank();
+                            AccountBase iskKontot; // Oanvänd variabel, kan tas bort.
+                            Bank sammaSak = new Bank();
                             Console.Clear();
                             Console.Write("Ange Kontonamn: ");
                             var iskKonto = Console.ReadLine();
@@ -139,7 +152,7 @@ internal class Bank
                     }
 
 
-                    Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess ID: ");
+                    Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
 
                     var taBort = Console.ReadLine();
 
@@ -267,7 +280,7 @@ internal class Bank
                     }
                     else
                     {
-                        Console.WriteLine("Konto med angivna Id finns inte.");
+                        Console.WriteLine("Konto med angivna Kontonummer finns inte.");
                     }
 
                     break;
