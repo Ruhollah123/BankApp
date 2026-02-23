@@ -90,9 +90,9 @@ internal class Bank
                     }
                     break;
 
-                //case "2":
-                //    bank.RemoveAccount(Guid.NewGuid());
-                //    break;
+                case "2":
+                    bank.RemoveAccount(input);
+                    break;
 
                 case "3":
                     bank.ShowAllAccounts(input);
@@ -172,7 +172,6 @@ internal class Bank
         {
             Console.WriteLine("Du har inga aktiva konton än");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
-            Console.ReadKey();
         }
 
         foreach (var account in accounts)
@@ -194,13 +193,13 @@ internal class Bank
             Console.WriteLine("Du har inga aktiva konton än");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
             Console.ReadKey();
+            return;
         }
 
         foreach (var konto in accounts)
         {
             Console.WriteLine($"Kontonamn: {konto.AccountName}, Kontonummer: {konto.AccountNumber}");
         }
-
 
         Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
 
@@ -213,6 +212,7 @@ internal class Bank
             RemoveAccount(kontoTaBort.Id);
             Console.WriteLine("Kontot har succesivt tagits bort!");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
+            Console.ReadKey();
         }
         else
         {
