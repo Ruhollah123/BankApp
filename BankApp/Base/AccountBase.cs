@@ -2,16 +2,14 @@
 
 internal abstract class AccountBase
 {
-    /*Farzad Id bör inte ha en setter. Objektets identitet ska förbli oföränderlig efter att det har skapats.
-     * StartingBalance är definierad men används ingenstans. En oanvänd variabel bör antingen tas bort eller ingå i saldoberäkningen, annars kan den förvirra läsaren
+    /*Farzad
+     * 
      * AccountName och AccountNumber initialiseras med tomma strängar men saknar validering.
-     * Villkoret amount < 0 är ofullständigt. Beloppet 0 är oftast också ogiltigt, så det är bättre att kontrollera amount <= 0.
-     * Withdraw saknar kontroll för negativa eller nollbelopp. Ett negativt belopp kan i praktiken vända beteendet och orsaka logiska fel.
      
     */
     internal Guid Id { get; } = Guid.NewGuid();
     protected decimal StartingBalance { get; } = 0;
-    public string AccountName { get; set; } = ""; //Hur man får den gröna linjen att försvinna//
+    public string AccountName { get; set; } = "";
     public string AccountNumber { get; set; } = "";
     internal decimal InterestRate { get; set; } = 2;
 
@@ -63,7 +61,7 @@ internal abstract class AccountBase
 
     internal virtual void Deposit(decimal amount)
     {
-        if (amount > 10000)
+        if (amount >= 10000)
         {
             Console.WriteLine("Ett fel har inträffat, Man får inte sätta in mer än 10000kr...");
         }
@@ -91,6 +89,10 @@ internal abstract class AccountBase
         if (balance < amount)
         {
             Console.WriteLine("Inte tillräckligt pengar för att ta ut");
+        }
+        else if (amount <= 0)
+        {
+            Console.WriteLine("\nNumret får inte vara 0 eller negativ!");
         }
         else
         {
