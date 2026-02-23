@@ -57,29 +57,65 @@ internal class Bank
                     Console.Write("Vilken typ av konto vill du skapa: ");
                     var skapaKonto = Console.ReadLine();
 
-                    if (string.IsNullOrWhiteSpace(skapaKonto))
+                    if (skapaKonto == "1" || skapaKonto == "2" || skapaKonto == "3" || string.IsNullOrWhiteSpace(skapaKonto))
                     {
+
                         Console.Clear();
-                        Console.WriteLine("Fel inmatning!");
-                        Console.Write("Försök igen senare...");
+                        if (skapaKonto == "1")
+                        {
+                            Console.WriteLine("BANK KONTO");
+                        }
+                        else if (skapaKonto == "2")
+                        {
+                            Console.WriteLine("UDDEVALLA KONTO");
+                        }
+                        else if (skapaKonto == "3")
+                        {
+                            Console.WriteLine("ISK KONTO");
+                        }
+                        else if (string.IsNullOrWhiteSpace(skapaKonto))
+                        {
+                            Console.WriteLine("Fel inmatning!");
+                            Console.Write("Försök igen senare...");
+                            Console.ReadKey();
+                            break;
+                        }
+
+                        Console.Write("\nAnge Kontonamn: ");
+                        var kontoNamn = Console.ReadLine();
+
+                        Console.Write("Ange Kontonummer: ");
+                        int.TryParse(Console.ReadLine(), out int kontoNummer);
+
+                        AccountBase nyttKonto = null;
+                        string kontoTyp;
+
+                        switch (skapaKonto)
+                        {
+                            case "1":
+                                Console.Clear();
+                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); // "possibly null reference" på kontoNamn.
+                                kontoTyp = "Bank Konto";
+                                break;
+
+                            case "2":
+                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); // "possibly null reference" på kontoNamn.
+                                kontoTyp = "Uddevalla Konto";
+
+                                break;
+
+                            case "3":
+                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); // "possibly null reference" på kontoNamn.
+                                kontoTyp = "Isk Konto";
+                                break;
+                        }
+
+
+                        bank.AddAccount(nyttKonto);
+
+                        Console.WriteLine("Kontot har skapats");
+                        Console.Write("Tryck Enter för att fortsätta till menyn...");
                         Console.ReadKey();
-                        break;
-                    }
-
-                    switch (skapaKonto)
-                    {
-                        case "1":
-                            bank.BankKonto(bank);
-                            break;
-
-                        case "2":
-                            bank.AccountForUddevalla(bank);
-                            break;
-
-
-                        case "3":
-                            bank.AccountForIsk(bank);
-                            break;
                     }
                     break;
 
@@ -103,59 +139,6 @@ internal class Bank
             }
         }
     }
-
-
-    public void BankKonto(Bank bank)
-    {
-        Console.Clear();
-        Console.Write("Ange Kontonamn: ");
-        var kontoNamn = Console.ReadLine();
-
-        Console.Write("Ange Kontonummer: ");
-        int.TryParse(Console.ReadLine(), out int kontoNummer);
-
-
-        AccountBase nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); // "possibly null reference" på kontoNamn.
-        bank.AddAccount(nyttKonto);
-        Console.WriteLine("Kontot har skapats");
-        Console.Write("Tryck Enter för att fortsätta till menyn...");
-        Console.ReadKey();
-    }
-
-    public void AccountForUddevalla(Bank bank)
-    {
-        Console.Clear();
-        Console.Write("Ange Kontonamn: ");
-        var uddevallaKonto = Console.ReadLine();
-
-        Console.Write("Ange Kontonummer: ");
-        int.TryParse(Console.ReadLine(), out int UddevallaKontoNummer);
-
-        AccountBase förUddevalla = new BankAccount(uddevallaKonto, UddevallaKontoNummer.ToString(), 2);
-        bank.AddAccount(förUddevalla);
-
-        Console.WriteLine("Uddevalla-Kontot har skapats");
-        Console.Write("Tryck Enter för att fortsätta till menyn...");
-        Console.ReadKey();
-    }
-
-    public void AccountForIsk(Bank bank)
-    {
-        Console.Clear();
-        Console.Write("Ange Kontonamn: ");
-        var iskKonto = Console.ReadLine();
-
-        Console.Write("Ange Kontonummer: ");
-        int.TryParse(Console.ReadLine(), out int iskKontoNummer);
-
-        AccountBase förIsk = new BankAccount(iskKonto, iskKontoNummer.ToString(), 2);
-        bank.AddAccount(förIsk);
-
-        Console.WriteLine("Isk-Kontot har skapats");
-        Console.Write("Tryck Enter för att fortsätta till menyn...");
-        Console.ReadKey();
-    }
-
 
     public void ShowAllAccounts(string input)
     {
