@@ -105,45 +105,4 @@ internal abstract class AccountBase
             bankTransactions.Add(t);
         }
     }
-
-
-    public void RemoveAccount(string input)
-    {
-        Console.Clear();
-
-        var bank = new Bank();
-        if (!bank.accounts.Any())
-        {
-            Console.WriteLine("Du har inga aktiva konton än");
-            Console.Write("Tryck Enter för att fortsätta till menyn...");
-            Console.ReadKey();
-        }
-
-        foreach (var konto in bank.accounts)
-        {
-            Console.WriteLine($"Kontonamn: {konto.AccountName}, Kontonummer: {konto.AccountNumber}");
-        }
-
-
-        Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
-
-        var taBort = Console.ReadLine();
-
-        var kontoTaBort = bank.accounts.FirstOrDefault(z => z.AccountNumber == taBort);
-
-        if (kontoTaBort != null)
-        {
-            bank.RemoveAccount(kontoTaBort.Id);
-            Console.WriteLine("Kontot har succesivt tagits bort!");
-            Console.Write("Tryck Enter för att fortsätta till menyn...");
-        }
-        else
-        {
-            Console.WriteLine("Det angivna kontonumret finns inte");
-            Console.Write("Tryck Enter för att fortsätta till menyn...");
-            Console.ReadKey();
-        }
-    }
-
-
 }
