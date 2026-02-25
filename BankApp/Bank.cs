@@ -24,9 +24,26 @@ internal class Bank
         }
     }
 
-    internal List<AccountBase> GetAccounts()
+    public List<AccountBase> GetAccounts()
     {
         return accounts;
+    }
+
+    public void InputToDeleteAccount(AccountBase kontoTaBort)
+    {
+        if (kontoTaBort != null)
+        {
+            RemoveAccount(kontoTaBort.Id);
+            Console.WriteLine("Kontot har succesivt tagits bort!");
+            Console.Write("Tryck Enter för att fortsätta till menyn...");
+            Console.ReadKey();
+        }
+        else
+        {
+            Console.WriteLine("Det angivna kontonumret finns inte");
+            Console.Write("Tryck Enter för att fortsätta till menyn...");
+            Console.ReadKey();
+        }
     }
 
     public static void ShowBankMenu(Bank bank)
@@ -48,18 +65,10 @@ internal class Bank
             switch (input)
             {
                 case "1":
-                    Console.Clear();
-
-                    Console.WriteLine("1. Bank Konto");
-                    Console.WriteLine("2. Uddevalla Konto");
-                    Console.WriteLine("3. Isk Konto");
-
-                    Console.Write("Vilken typ av konto vill du skapa: ");
-                    var skapaKonto = Console.ReadLine();
+                    string skapaKonto = TypeOfAccount.DifferentTypeOfAccounts(input);
 
                     if (skapaKonto == "1" || skapaKonto == "2" || skapaKonto == "3" || string.IsNullOrWhiteSpace(skapaKonto))
                     {
-
                         Console.Clear();
                         if (skapaKonto == "1")
                         {
@@ -81,41 +90,31 @@ internal class Bank
                             break;
                         }
 
-                        Console.Write("\nAnge Kontonamn: ");
-                        var kontoNamn = Console.ReadLine();
-
-                        Console.Write("Ange Kontonummer: ");
-                        int.TryParse(Console.ReadLine(), out int kontoNummer);
-
+                        var (kontoNamn, kontoNummer) = TypeOfAccount.ContactInput();
                         AccountBase nyttKonto = null;
-                        string kontoTyp;
+                        string kontoTyp = "";
 
                         switch (skapaKonto)
                         {
                             case "1":
                                 Console.Clear();
-                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); // "possibly null reference" på kontoNamn.
+                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2);
                                 kontoTyp = "Bank Konto";
                                 break;
 
                             case "2":
-                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); // "possibly null reference" på kontoNamn.
+                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); 
                                 kontoTyp = "Uddevalla Konto";
 
                                 break;
 
                             case "3":
-                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); // "possibly null reference" på kontoNamn.
+                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); 
                                 kontoTyp = "Isk Konto";
                                 break;
                         }
 
-
-                        bank.AddAccount(nyttKonto);
-
-                        Console.WriteLine("Kontot har skapats");
-                        Console.Write("Tryck Enter för att fortsätta till menyn...");
-                        Console.ReadKey();
+                        TypeOfAccount.AddToAccontsList(bank, nyttKonto);
                     }
                     break;
 
@@ -162,134 +161,63 @@ internal class Bank
 
     public void RemoveAccount(string input)
     {
-        Console.Clear();
-
-        if (!accounts.Any())
-        {
-            Console.WriteLine("Du har inga aktiva konton än");
-            Console.Write("Tryck Enter för att fortsätta till menyn...");
-            Console.ReadKey();
-            return;
-        }
-
-        foreach (var konto in accounts)
-        {
-            Console.WriteLine($"Kontonamn: {konto.AccountName}, Kontonummer: {konto.AccountNumber}");
-        }
+        DeleteAccounts.WetherAccountExists(accounts);
 
         Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
-
         var taBort = Console.ReadLine();
-
         var kontoTaBort = accounts.FirstOrDefault(z => z.AccountNumber == taBort);
-
-        if (kontoTaBort != null)
-        {
-            RemoveAccount(kontoTaBort.Id);
-            Console.WriteLine("Kontot har succesivt tagits bort!");
-            Console.Write("Tryck Enter för att fortsätta till menyn...");
-            Console.ReadKey();
-        }
-        else
-        {
-            Console.WriteLine("Det angivna kontonumret finns inte");
-            Console.Write("Tryck Enter för att fortsätta till menyn...");
-            Console.ReadKey();
-        }
+        InputToDeleteAccount(kontoTaBort);
     }
 
     public void ManageAccounts(Bank bank)
     {
         Console.Clear();
 
-        if (!bank.accounts.Any())
-        {
-            Console.WriteLine("Ingen konto har registrerats ännu");
-            Console.Write("Tryck Enter för att fortsätta till menyn...");
-            Console.ReadKey();
-        }
-
-
+        HandleAccount.AccountNotExisting(bank);
         Console.WriteLine("Alla aktiva konton: ");
-        foreach (var konton in bank.accounts)
-        {
-            Console.WriteLine($"\nNamn: {konton.AccountName}, Kontonummer: {konton.AccountNumber}");
-        }
+        AccountBase account = HandleAccount.CurrentActiveAccounts(bank);
 
-        Console.Write("\nSkriv någon av följande Konto-nummer du vill hantera: ");
-        var hantering = Console.ReadLine();
-
-        var kontona = bank.accounts.FirstOrDefault(x => x.AccountNumber == hantering);
         bool run = true;
         while (run)
         {
-            if (kontona != null)
-            {
-                Console.Clear();
-
-                Console.WriteLine("1. Insättning");
-                Console.WriteLine("2. Uttag");
-                Console.WriteLine("3. Visa saldo");
-                Console.WriteLine("4. Insättningar");
-                Console.WriteLine("\n5. Tillbaka till menyn");
-                Console.Write("\nVälj vänligen en av alternativen ovan (1-5): ");
-                int.TryParse(Console.ReadLine(), out int inputs);
-
-                switch (inputs)
-                {
-                    case 1:
-
-                        Console.Write("Ange belopp du vill sätta in: ");
-                        decimal.TryParse(Console.ReadLine(), out decimal amount);
-                        kontona.Deposit(amount);
-                        Console.Write("Tryck Enter för att fortsätta till menyn...");
-                        Console.ReadKey();
-                        break;
-
-                    case 2:
-                        Console.Write("Ange beloppet du vill ta ut: ");
-                        int.TryParse(Console.ReadLine(), out int taUtBelopp);
-                        kontona.Withdraw(taUtBelopp);
-                        Console.Write("Tryck Enter för att fortsätta till menyn...");
-                        Console.ReadKey();
-
-                        break;
-
-                    case 3:
-
-                        Console.WriteLine($"\nDitt saldo är: {kontona.Balance()}");
-                        Console.Write("Tryck Enter för att fortsätta till menyn...");
-                        Console.ReadKey();
-                        break;
-
-                    case 4:
-                        Console.Clear();
-
-                        Console.WriteLine("Alla insättningar under året: ");
-
-                        var myAccount = new BankAccount("", "", 2);
-
-                        myAccount.SeedTransactions();
-
-                        foreach (var t in myAccount.SeedTransactions())
-                        {
-                            Console.WriteLine($"\nBelopp: {t.Amount}kr");
-                            Console.WriteLine($"Datum: {t.TransactionalDate}");
-                        }
-
-                        Console.WriteLine($"\nRänta: {Math.Round(myAccount.CalculateInterestRate(), 2)}kr");
-                        Console.Write("\nTryck Enter för att fortsätta till menyn...");
-                        Console.ReadKey();
-                        break;
-
-                    case 5:
-                        run = false;
-                        break;
-                }
-            }
-            else
+            Console.Clear();
+            if (account == null)
             {
                 Console.WriteLine("Konto med angivna Kontonummer finns inte.");
+            }
+
+
+            Console.WriteLine("1. Insättning");
+            Console.WriteLine("2. Uttag");
+            Console.WriteLine("3. Visa saldo");
+            Console.WriteLine("4. Insättningar");
+            Console.WriteLine("\n5. Tillbaka till menyn");
+            Console.Write("\nVälj vänligen en av alternativen ovan (1-5): ");
+            int.TryParse(Console.ReadLine(), out int inputs);
+
+            switch (inputs)
+            {
+                case 1:
+                    HandleAccount.DepositIntoAccount(account);
+                    break;
+
+                case 2:
+                    HandleAccount.WithdrawFromAccount(account);
+
+                    break;
+
+                case 3:
+                    HandleAccount.CurrentBalance(account);
+                    break;
+
+                case 4:
+                    Console.Clear();
+                    HandleAccount.TransactionsDuringTheYear();
+                    break;
+
+                case 5:
+                    run = false;
+                    break;
             }
         }
     }
