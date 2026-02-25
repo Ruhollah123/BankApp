@@ -103,13 +103,13 @@ internal class Bank
                                 break;
 
                             case "2":
-                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); 
+                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2);
                                 kontoTyp = "Uddevalla Konto";
 
                                 break;
 
                             case "3":
-                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2); 
+                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2);
                                 kontoTyp = "Isk Konto";
                                 break;
                         }
@@ -129,7 +129,6 @@ internal class Bank
 
                 case "4":
                     bank.ManageAccounts(bank);
-
                     break;
 
                 case "5":
@@ -142,7 +141,6 @@ internal class Bank
     public void ShowAllAccounts(string input)
     {
         Console.Clear();
-
         if (!accounts.Any())
         {
             Console.WriteLine("Du har inga aktiva konton än");
@@ -185,7 +183,6 @@ internal class Bank
             {
                 Console.WriteLine("Konto med angivna Kontonummer finns inte.");
             }
-
 
             Console.WriteLine("1. Insättning");
             Console.WriteLine("2. Uttag");

@@ -5,8 +5,6 @@ namespace BankApp;
 
 internal class HandleAccount
 {
-
-
     public static void AccountNotExisting(Bank bank)
     {
         if (!bank.accounts.Any())

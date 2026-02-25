@@ -2,11 +2,6 @@
 
 internal abstract class AccountBase
 {
-    /*Farzad
-     * 
-     * AccountName och AccountNumber initialiseras med tomma strängar men saknar validering.
-     
-    */
     internal Guid Id { get; } = Guid.NewGuid();
     protected decimal StartingBalance { get; } = 0;
     public string AccountName { get; set; } = "";
