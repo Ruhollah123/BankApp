@@ -1,5 +1,5 @@
-﻿using BankApp.Accounts;
-using BankApp.Base;
+﻿using BankApp.Base;
+using BankApp.Factories;
 
 namespace BankApp;
 
@@ -67,7 +67,7 @@ internal class Bank
                 case "1":
                     string skapaKonto = TypeOfAccount.DifferentTypeOfAccounts(input);
 
-                    if (skapaKonto == "1" || skapaKonto == "2" || skapaKonto == "3" || string.IsNullOrWhiteSpace(skapaKonto))
+                    if (skapaKonto == "1" || skapaKonto == "2" || skapaKonto == "3" || skapaKonto == "4" || skapaKonto == "5" || string.IsNullOrWhiteSpace(skapaKonto))
                     {
                         Console.Clear();
                         if (skapaKonto == "1")
@@ -82,6 +82,14 @@ internal class Bank
                         {
                             Console.WriteLine("ISK KONTO");
                         }
+                        else if (skapaKonto == "4")
+                        {
+                            Console.WriteLine("SAVINGS KONTO");
+                        }
+                        else if (skapaKonto == "5")
+                        {
+                            Console.WriteLine("AKTIE KONTO");
+                        }
                         else if (string.IsNullOrWhiteSpace(skapaKonto))
                         {
                             Console.WriteLine("Fel inmatning!");
@@ -90,31 +98,37 @@ internal class Bank
                             break;
                         }
 
-                        var (kontoNamn, kontoNummer) = TypeOfAccount.ContactInput();
-                        AccountBase nyttKonto = null;
-                        string kontoTyp = "";
+                        var accountDetails = TypeOfAccount.ContactInput();
 
                         switch (skapaKonto)
                         {
                             case "1":
                                 Console.Clear();
-                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2);
-                                kontoTyp = "Bank Konto";
+                                accountDetails.AccountType = Types.AccountType.BankAccount;
                                 break;
 
                             case "2":
-                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2);
-                                kontoTyp = "Uddevalla Konto";
-
+                                Console.Clear();
+                                accountDetails.AccountType = Types.AccountType.UddevallaAccount;
                                 break;
 
                             case "3":
-                                nyttKonto = new BankAccount(kontoNamn, kontoNummer.ToString(), 2);
-                                kontoTyp = "Isk Konto";
+                                Console.Clear();
+                                accountDetails.AccountType = Types.AccountType.IskAccount;
+                                break;
+
+                            case "4":
+                                accountDetails.AccountType = Types.AccountType.SavingsAccount;
+                                break;
+
+                            case "5":
+                                accountDetails.AccountType = Types.AccountType.AktieAccount;
                                 break;
                         }
 
-                        TypeOfAccount.AddToAccontsList(bank, nyttKonto);
+                        var accountJustCreated = AccountFactory.CreateAccount(accountDetails);
+
+                        TypeOfAccount.AddToAccontsList(bank, accountJustCreated);
                     }
                     break;
 
@@ -149,6 +163,7 @@ internal class Bank
 
         foreach (var account in accounts)
         {
+
             Console.WriteLine($"Namn: {account.AccountName}");
             Console.WriteLine($"Kontonummer: {account.AccountNumber}");
             Console.WriteLine($"Saldo: {account.Balance()}");
@@ -162,7 +177,7 @@ internal class Bank
         DeleteAccounts.WetherAccountExists(accounts);
 
         Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
-        var taBort = Console.ReadLine();
+        int.TryParse(Console.ReadLine(), out int taBort);
         var kontoTaBort = accounts.FirstOrDefault(z => z.AccountNumber == taBort);
         InputToDeleteAccount(kontoTaBort);
     }

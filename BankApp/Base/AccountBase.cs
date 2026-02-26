@@ -5,7 +5,7 @@ internal abstract class AccountBase
     internal Guid Id { get; } = Guid.NewGuid();
     protected decimal StartingBalance { get; } = 0;
     public string AccountName { get; set; } = "";
-    public string AccountNumber { get; set; } = "";
+    public int AccountNumber { get; set; }
     internal decimal InterestRate { get; set; } = 2;
 
     protected List<BankTransaction> bankTransactions = new List<BankTransaction>();

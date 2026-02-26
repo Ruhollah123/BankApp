@@ -23,11 +23,10 @@ internal class HandleAccount
         }
 
         Console.Write("\nSkriv någon av följande Konto-nummer du vill hantera: ");
-        var hantering = Console.ReadLine();
+        int.TryParse(Console.ReadLine(), out int hantering);
         var konto = bank.accounts.FirstOrDefault(x => x.AccountNumber == hantering);
         return konto;
     }
-
 
     public static void DepositIntoAccount(AccountBase account)
     {
@@ -56,12 +55,11 @@ internal class HandleAccount
         Console.ReadKey();
     }
 
-
     public static void TransactionsDuringTheYear()
     {
         Console.WriteLine("Alla insättningar under året: ");
 
-        var myAccount = new BankAccount("", "", 2);
+        var myAccount = new BankAccount("", 420, 2);
 
         myAccount.SeedTransactions();
 

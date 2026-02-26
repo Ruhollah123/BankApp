@@ -2,9 +2,9 @@
 
 namespace BankApp.Accounts;
 
-internal class BankAccount : AccountBase
+internal class SavingsAccount : AccountBase
 {
-    public BankAccount(string accountName, int accountNumber, decimal interestRate)
+    public SavingsAccount(string accountName, int accountNumber, decimal interestRate)
     {
         AccountName = accountName;
         AccountNumber = accountNumber;
@@ -16,6 +16,6 @@ internal class BankAccount : AccountBase
         var t = bankTransactions.Sum(x => x.Amount);
         return t + StartingBalance;
     }
+
+
 }
-
-

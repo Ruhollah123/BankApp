@@ -1,4 +1,5 @@
-﻿using BankApp.Base;
+﻿using BankApp.Accounts;
+using BankApp.Base;
 using BankApp.Models;
 using BankApp.Types;
 
@@ -11,14 +12,27 @@ internal static class AccountFactory
         switch (accountDetails.AccountType)
         {
             case AccountType.BankAccount:
-                break;
+                return new BankAccount(accountDetails.AccountName,
+                    accountDetails.AccountNumber, accountDetails.StartingBalance);
+
             case AccountType.IskAccount:
-                break;
+                return new UddevallaAccount(accountDetails.AccountName,
+                    accountDetails.AccountNumber, accountDetails.StartingBalance);
+
             case AccountType.UddevallaAccount:
-                break;
+                return new IskAccount(accountDetails.AccountName,
+                    accountDetails.AccountNumber, accountDetails.StartingBalance);
+
+            case AccountType.SavingsAccount:
+                return new SavingsAccount(accountDetails.AccountName,
+                    accountDetails.AccountNumber, accountDetails.StartingBalance);
+
+            case AccountType.AktieAccount:
+                return new AktieAccount(accountDetails.AccountName,
+                    accountDetails.AccountNumber, accountDetails.StartingBalance);
+
             default:
-                break;
+                throw new NotImplementedException();
         }
-        return default;
     }
 }

@@ -8,5 +8,7 @@ internal enum AccountType
 {
     BankAccount = 0,
     IskAccount = 1,
-    UddevallaAccount = 2
+    UddevallaAccount = 2,
+    SavingsAccount = 3,
+    AktieAccount = 4,
 }

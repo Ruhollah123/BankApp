@@ -1,10 +1,13 @@
 ﻿using BankApp.Base;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace BankApp.Accounts;
 
-internal class BankAccount : AccountBase
+internal class AktieAccount : AccountBase
 {
-    public BankAccount(string accountName, int accountNumber, decimal interestRate)
+    public AktieAccount(string accountName, int accountNumber, decimal interestRate)
     {
         AccountName = accountName;
         AccountNumber = accountNumber;
@@ -17,5 +20,3 @@ internal class BankAccount : AccountBase
         return t + StartingBalance;
     }
 }
-
-

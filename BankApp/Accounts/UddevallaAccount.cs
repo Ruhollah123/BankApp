@@ -4,11 +4,18 @@ namespace BankApp.Accounts;
 
 internal class UddevallaAccount : AccountBase
 {
+    public UddevallaAccount(string accountName, int accountNumber, decimal interestRate)
+    {
+        AccountName = accountName; 
+        AccountNumber = accountNumber;
+        InterestRate = interestRate;
+    }
+
     internal override decimal Balance()
     {
         var t = bankTransactions.Sum(x => x.Amount);
         return t + StartingBalance;
     }
 
-    
+
 }
