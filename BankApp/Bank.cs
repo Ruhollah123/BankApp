@@ -52,7 +52,6 @@ internal class Bank
         while (running)
         {
             Console.Clear();
-
             int inputChosen = KeyboardSelection.SelectionOfTheMenu();
 
             switch (inputChosen)
@@ -152,6 +151,7 @@ internal class Bank
         {
             Console.WriteLine("Du har inga aktiva konton än");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
+            return;
         }
 
         foreach (var account in accounts)
@@ -167,10 +167,11 @@ internal class Bank
 
     public void RemoveAccount(string input)
     {
-        DeleteAccounts.WetherAccountExists(accounts);
+        int? taBort = DeleteAccounts.WetherAccountExists(accounts);
+        if (taBort == null)
+            return;
 
-        Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
-        int.TryParse(Console.ReadLine(), out int taBort);
+        
         var kontoTaBort = accounts.FirstOrDefault(z => z.AccountNumber == taBort);
         InputToDeleteAccount(kontoTaBort);
     }
