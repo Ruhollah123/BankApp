@@ -171,7 +171,7 @@ internal class Bank
         if (taBort == null)
             return;
 
-        
+
         var kontoTaBort = accounts.FirstOrDefault(z => z.AccountNumber == taBort);
         InputToDeleteAccount(kontoTaBort);
     }
@@ -180,50 +180,56 @@ internal class Bank
     {
         Console.Clear();
 
-        HandleAccount.AccountNotExisting(bank);
-        Console.WriteLine("Alla aktiva konton: ");
-        AccountBase account = HandleAccount.CurrentActiveAccounts(bank);
-
-        bool run = true;
-        while (run)
+        if (!accounts.Any())
         {
-            Console.Clear();
-            if (account == null)
+            HandleAccount.AccountNotExisting(bank);
+        }
+        else
+        {
+            Console.WriteLine("Alla aktiva konton: ");
+            AccountBase account = HandleAccount.CurrentActiveAccounts(bank);
+
+            bool run = true;
+            while (run)
             {
-                Console.WriteLine("Konto med angivna Kontonummer finns inte.");
-            }
+                Console.Clear();
+                if (account == null)
+                {
+                    Console.WriteLine("Konto med angivna Kontonummer finns inte.");
+                }
 
-            Console.WriteLine("1. Insättning");
-            Console.WriteLine("2. Uttag");
-            Console.WriteLine("3. Visa saldo");
-            Console.WriteLine("4. Insättningar");
-            Console.WriteLine("\n5. Tillbaka till menyn");
-            Console.Write("\nVälj vänligen en av alternativen ovan (1-5): ");
-            int.TryParse(Console.ReadLine(), out int inputs);
+                Console.WriteLine("1. Insättning");
+                Console.WriteLine("2. Uttag");
+                Console.WriteLine("3. Visa saldo");
+                Console.WriteLine("4. Insättningar");
+                Console.WriteLine("\n5. Tillbaka till menyn");
+                Console.Write("\nVälj vänligen en av alternativen ovan (1-5): ");
+                int.TryParse(Console.ReadLine(), out int inputs);
 
-            switch (inputs)
-            {
-                case 1:
-                    HandleAccount.DepositIntoAccount(account);
-                    break;
+                switch (inputs)
+                {
+                    case 1:
+                        HandleAccount.DepositIntoAccount(account);
+                        break;
 
-                case 2:
-                    HandleAccount.WithdrawFromAccount(account);
+                    case 2:
+                        HandleAccount.WithdrawFromAccount(account);
 
-                    break;
+                        break;
 
-                case 3:
-                    HandleAccount.CurrentBalance(account);
-                    break;
+                    case 3:
+                        HandleAccount.CurrentBalance(account);
+                        break;
 
-                case 4:
-                    Console.Clear();
-                    HandleAccount.TransactionsDuringTheYear();
-                    break;
+                    case 4:
+                        Console.Clear();
+                        HandleAccount.TransactionsDuringTheYear();
+                        break;
 
-                case 5:
-                    run = false;
-                    break;
+                    case 5:
+                        run = false;
+                        break;
+                }
             }
         }
     }

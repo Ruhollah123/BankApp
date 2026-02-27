@@ -12,6 +12,7 @@ internal class HandleAccount
             Console.WriteLine("Ingen konto har registrerats ännu");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
             Console.ReadKey();
+            return;
         }
     }
 
