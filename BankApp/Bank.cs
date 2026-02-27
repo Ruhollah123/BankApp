@@ -52,41 +52,34 @@ internal class Bank
         while (running)
         {
             Console.Clear();
-            Console.WriteLine("MENY");
-            Console.WriteLine("1. Skapa Konto"); //Isk konto, uddevalla konto vanlig Bank konto
-            Console.WriteLine("2. Ta bort konto");// kunna ta bort konto
-            Console.WriteLine("3. Visa konton"); // gå in på kontot och visa balance 
-            Console.WriteLine("4. Hantera konto"); //sätta in pengar och ta ut pengar, kunna använda välja en specifik konto och sedan visa dess specifika information
-            Console.WriteLine("5. Stäng");
 
-            Console.Write("Ange någon av alternativen ovan: ");
-            var input = Console.ReadLine();
+            int inputChosen = KeyboardSelection.SelectionOfTheMenu();
 
-            switch (input)
+            switch (inputChosen)
             {
-                case "1":
-                    string skapaKonto = TypeOfAccount.DifferentTypeOfAccounts(input);
+                case 0:
+                    string skapaKonto = TypeOfAccount.DifferentTypeOfAccounts(inputChosen.ToString());
 
-                    if (skapaKonto == "1" || skapaKonto == "2" || skapaKonto == "3" || skapaKonto == "4" || skapaKonto == "5" || string.IsNullOrWhiteSpace(skapaKonto))
+                    if (skapaKonto == "0" || skapaKonto == "1" || skapaKonto == "2" || skapaKonto == "3" || skapaKonto == "4" || string.IsNullOrWhiteSpace(skapaKonto))
                     {
                         Console.Clear();
-                        if (skapaKonto == "1")
+                        if (skapaKonto == "0")
                         {
                             Console.WriteLine("BANK KONTO");
                         }
-                        else if (skapaKonto == "2")
+                        else if (skapaKonto == "1")
                         {
                             Console.WriteLine("UDDEVALLA KONTO");
                         }
-                        else if (skapaKonto == "3")
+                        else if (skapaKonto == "2")
                         {
                             Console.WriteLine("ISK KONTO");
                         }
-                        else if (skapaKonto == "4")
+                        else if (skapaKonto == "3")
                         {
                             Console.WriteLine("SAVINGS KONTO");
                         }
-                        else if (skapaKonto == "5")
+                        else if (skapaKonto == "4")
                         {
                             Console.WriteLine("AKTIE KONTO");
                         }
@@ -132,20 +125,20 @@ internal class Bank
                     }
                     break;
 
-                case "2":
-                    bank.RemoveAccount(input);
+                case 1:
+                    bank.RemoveAccount(inputChosen.ToString());
                     break;
 
-                case "3":
-                    bank.ShowAllAccounts(input);
+                case 2:
+                    bank.ShowAllAccounts(inputChosen.ToString());
                     Console.ReadKey();
                     break;
 
-                case "4":
+                case 3:
                     bank.ManageAccounts(bank);
                     break;
 
-                case "5":
+                case 4:
                     running = false;
                     break;
             }
