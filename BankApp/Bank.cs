@@ -5,9 +5,6 @@ namespace BankApp;
 
 internal class Bank
 {
-    /*Farzad
-         * RemoveAccount arbetar med Guid, men användarinmatningen är en sträng, vilket leder till en typmässig och logisk inkonsekvens.
-         */
     internal List<AccountBase> accounts = new List<AccountBase>();
     internal void AddAccount(AccountBase account)
     {
@@ -160,7 +157,7 @@ internal class Bank
             Console.WriteLine($"Namn: {account.AccountName}");
             Console.WriteLine($"Kontonummer: {account.AccountNumber}");
             Console.WriteLine($"Saldo: {account.Balance()}");
-            Console.WriteLine($"Ränta: {Math.Round(account.CalculateInterestRate(), 2)}kr"); /*Eller ha en siffra inuti argumenten här inuti parentesen men då får du ändra där uppe, ena är att du hämtar ett konto och den andra en siffra */
+            Console.WriteLine($"Ränta: {Math.Round(account.CalculateInterestRate(), 2)}kr"); 
             Console.WriteLine("-----------------------------");
         }
     }
