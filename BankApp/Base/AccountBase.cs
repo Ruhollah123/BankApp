@@ -27,23 +27,33 @@ internal abstract class AccountBase
         return bankTransactions;
     }
 
-    public decimal CalculateInterestRate()
+    public decimal CalculateInterestRate(int year)
     {
         decimal totalInterestRate = 0;
 
-        DateTime startOfYear = new DateTime(2025, 1, 1);
-        DateTime endOfYear = new DateTime(2025, 12, 31);
+        DateTime startOfYear = new DateTime(year, 1, 1);
+        DateTime endOfYear = new DateTime(year, 12, 31);
 
+        decimal balanceForTheDay = 0;
+        foreach (var transacion in bankTransactions)
+        {
+            if (transacion.TransactionalDate < startOfYear)
+            {
+                balanceForTheDay += transacion.Amount;
+            }
+        }
+
+        var transactionsThisYear = bankTransactions
+            .Where(t => t.TransactionalDate >= startOfYear && t.TransactionalDate <= endOfYear)
+            .OrderBy(t => t.TransactionalDate)
+            .ToList();
+        int transactionIndex = 0;
         for (DateTime day = startOfYear; day <= endOfYear; day = day.AddDays(1))
         {
-            decimal balanceForTheDay = Balance();
-
-            foreach (var transaction in bankTransactions)
+            while (transactionIndex < transactionsThisYear.Count && transactionsThisYear[transactionIndex].TransactionalDate == day)
             {
-                if (transaction.TransactionalDate <= day)
-                {
-                    balanceForTheDay += transaction.Amount;
-                }
+                balanceForTheDay += transactionsThisYear[transactionIndex].Amount;
+                transactionIndex++;
             }
 
             totalInterestRate += balanceForTheDay * (InterestRate / 100 / 365);
