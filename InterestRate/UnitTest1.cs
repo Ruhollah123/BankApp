@@ -28,12 +28,12 @@ public class UnitTest1
     }
 
     [Fact]
-    public void AccountBase_Deposit_theInterestRate2()
+    public void AccountBase_Deposit_ShouldReturnFalseWhenDepositOver10thousand()
     {
         var account = new BankAccount("test", 876, 0.02m);
 
-        var syntax = account.Deposit(12000, new DateTime(2025, 1, 1));
+        var depositOverTen = account.Deposit(12000, new DateTime(2025, 1, 1));
 
-        Assert.Equal(false, syntax);
+        Assert.Equal(false, depositOverTen);
     }
 }
