@@ -48,6 +48,7 @@ internal abstract class AccountBase
             .OrderBy(t => t.TransactionalDate)
             .ToList();
         int transactionIndex = 0;
+
         for (DateTime day = startOfYear; day <= endOfYear; day = day.AddDays(1))
         {
             while (transactionIndex < transactionsThisYear.Count && transactionsThisYear[transactionIndex].TransactionalDate == day)
