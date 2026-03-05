@@ -1,12 +1,14 @@
-﻿namespace BankApp.Base;
+﻿using Entities;
 
-internal abstract class AccountBase
+namespace Entities.Base;
+
+public abstract class AccountBase
 {
-    internal Guid Id { get; } = Guid.NewGuid();
+    public Guid Id { get; } = Guid.NewGuid();
     protected decimal StartingBalance { get; } = 0;
     public string AccountName { get; set; } = "";
     public int AccountNumber { get; set; }
-    internal decimal InterestRate { get; set; } = 2;
+    public decimal InterestRate { get; set; } = 2;
 
     protected List<BankTransaction> bankTransactions = new List<BankTransaction>();
 
@@ -63,9 +65,9 @@ internal abstract class AccountBase
         return totalInterestRate;
     }
 
-    internal abstract decimal Balance();
+    public abstract decimal Balance();
 
-    internal virtual void Deposit(decimal amount)
+    public virtual void Deposit(decimal amount)
     {
         if (amount >= 10000)
         {
@@ -88,7 +90,7 @@ internal abstract class AccountBase
         }
     }
 
-    internal virtual void Withdraw(decimal amount)
+    public virtual void Withdraw(decimal amount)
     {
         var balance = Balance();
 

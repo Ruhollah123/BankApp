@@ -1,8 +1,8 @@
-﻿using BankApp.Base;
+﻿using Entities.Base;
 
 namespace BankApp;
 
-internal class DeleteAccounts
+public class DeleteAccounts
 {
     public static int? WetherAccountExists(List<AccountBase> accounts)
     {

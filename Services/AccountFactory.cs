@@ -3,7 +3,7 @@ using Entities.Base;
 using Entities.Types;
 using Services.Models;
 
-namespace BankApp.Factories;
+namespace Services;
 
 public static class AccountFactory
 {

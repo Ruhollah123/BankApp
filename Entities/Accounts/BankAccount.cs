@@ -1,21 +1,21 @@
-﻿using BankApp.Base;
+﻿using Entities.Base;
 
-namespace BankApp.Accounts;
+namespace Entities.Accounts;
 
-internal class SavingsAccount : AccountBase
+public class BankAccount : AccountBase
 {
-    public SavingsAccount(string accountName, int accountNumber, decimal interestRate)
+    public BankAccount(string accountName, int accountNumber, decimal interestRate)
     {
         AccountName = accountName;
         AccountNumber = accountNumber;
         InterestRate = interestRate;
     }
 
-    internal override decimal Balance()
+    public override decimal Balance()
     {
         var t = bankTransactions.Sum(x => x.Amount);
         return t + StartingBalance;
     }
-
-
 }
+
+

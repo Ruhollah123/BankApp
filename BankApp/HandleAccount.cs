@@ -1,9 +1,9 @@
-﻿using BankApp.Accounts;
-using BankApp.Base;
+﻿using Entities.Accounts;
+using Entities.Base;
 
 namespace BankApp;
 
-internal class HandleAccount
+public class HandleAccount
 {
     public static void AccountNotExisting(Bank bank)
     {
@@ -70,7 +70,7 @@ internal class HandleAccount
             Console.WriteLine($"Datum: {t.TransactionalDate}");
         }
 
-        Console.WriteLine($"\nRänta: {Math.Round(myAccount.CalculateInterestRate(), 2)}kr");
+        Console.WriteLine($"\nRänta: {Math.Round(myAccount.CalculateInterestRate(2025), 2)}kr");
         Console.Write("\nTryck Enter för att fortsätta till menyn...");
         Console.ReadKey();
     }

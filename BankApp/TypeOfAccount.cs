@@ -1,9 +1,9 @@
-﻿using BankApp.Base;
-using BankApp.Models;
+﻿using Entities.Base;
+using Services.Models;
 
 namespace BankApp;
 
-internal class TypeOfAccount
+public class TypeOfAccount
 {
     public static string DifferentTypeOfAccounts(string input)
     {

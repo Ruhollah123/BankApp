@@ -1,6 +1,6 @@
 ﻿namespace BankApp;
 
-internal class KeyboardSelection
+public class KeyboardSelection
 {
     public static int SelectionOfTheMenu()
     {

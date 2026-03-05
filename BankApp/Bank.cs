@@ -1,17 +1,17 @@
-﻿using BankApp.Base;
-using BankApp.Factories;
+﻿using BankApp.Factories;
+using Entities.Base;
 
 namespace BankApp;
 
-internal class Bank
+public class Bank
 {
-    internal List<AccountBase> accounts = new List<AccountBase>();
-    internal void AddAccount(AccountBase account)
+    public List<AccountBase> accounts = new List<AccountBase>();
+    public void AddAccount(AccountBase account)
     {
         accounts.Add(account);
     }
 
-    internal void RemoveAccount(Guid accountId)
+    public void RemoveAccount(Guid accountId)
     {
         var account = accounts.FirstOrDefault(x => x.Id == accountId);
 
@@ -93,25 +93,25 @@ internal class Bank
                         {
                             case "1":
                                 Console.Clear();
-                                accountDetails.AccountType = Types.AccountType.BankAccount;
+                                accountDetails.AccountType = Entities.Types.AccountType.BankAccount;
                                 break;
 
                             case "2":
                                 Console.Clear();
-                                accountDetails.AccountType = Types.AccountType.UddevallaAccount;
+                                accountDetails.AccountType = Entities.Types.AccountType.UddevallaAccount;
                                 break;
 
                             case "3":
                                 Console.Clear();
-                                accountDetails.AccountType = Types.AccountType.IskAccount;
+                                accountDetails.AccountType = Entities.Types.AccountType.IskAccount;
                                 break;
 
                             case "4":
-                                accountDetails.AccountType = Types.AccountType.SavingsAccount;
+                                accountDetails.AccountType = Entities.Types.AccountType.SavingsAccount;
                                 break;
 
                             case "5":
-                                accountDetails.AccountType = Types.AccountType.AktieAccount;
+                                accountDetails.AccountType = Entities.Types.AccountType.AktieAccount;
                                 break;
                         }
 
@@ -157,7 +157,7 @@ internal class Bank
             Console.WriteLine($"Namn: {account.AccountName}");
             Console.WriteLine($"Kontonummer: {account.AccountNumber}");
             Console.WriteLine($"Saldo: {account.Balance()}");
-            Console.WriteLine($"Ränta: {Math.Round(account.CalculateInterestRate(), 2)}kr"); 
+            Console.WriteLine($"Ränta: {Math.Round(account.CalculateInterestRate(2025), 2)}kr"); 
             Console.WriteLine("-----------------------------");
         }
     }
