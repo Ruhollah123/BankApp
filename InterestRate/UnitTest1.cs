@@ -36,4 +36,25 @@ public class UnitTest1
 
         Assert.Equal(false, depositOverTen);
     }
+
+    [Fact]
+    public void AccountBase_WithDraw_ShouldReturnFalseWhenWithdrawIsBiggerThanBalance()
+    {
+        var account = new BankAccount("test", 876, 0.02m);
+
+        var IfBiggerThanBalance = account.Withdraw(12000, new DateTime(2025, 1, 1));
+
+        Assert.Equal(false, IfBiggerThanBalance);
+    }
+
+
+    [Fact]
+    public void AccountBase_SeedTransactions_WetherItReturnsAListOfTransactionOrNot()
+    {
+        var account = new UddevallaAccount("TheTest", 1234, 2);
+
+        var ifItReturnsAList = account.SeedTransactions();
+
+        Assert.NotNull(ifItReturnsAList);
+    }
 }

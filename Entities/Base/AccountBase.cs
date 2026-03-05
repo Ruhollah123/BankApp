@@ -95,17 +95,19 @@ public abstract class AccountBase
         }
     }
 
-    public virtual void Withdraw(decimal amount, DateTime wheneverDate)
+    public virtual bool Withdraw(decimal amount, DateTime wheneverDate)
     {
         var balance = Balance();
 
         if (balance < amount)
         {
             Console.WriteLine("Inte tillräckligt pengar för att ta ut");
+            return false;
         }
         else if (amount <= 0)
         {
             Console.WriteLine("\nNumret får inte vara 0 eller negativ!");
+            return false;
         }
         else
         {
@@ -118,6 +120,7 @@ public abstract class AccountBase
             };
 
             bankTransactions.Add(t);
+            return true;
         }
     }
 }
