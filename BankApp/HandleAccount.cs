@@ -33,7 +33,7 @@ public class HandleAccount
     {
         Console.Write("Ange belopp du vill sätta in: ");
         decimal.TryParse(Console.ReadLine(), out decimal amount);
-        account.Deposit(amount);
+        account.Deposit(amount, new DateTime(2026, 1, 1));
         Console.Write("Tryck Enter för att fortsätta till menyn...");
         Console.ReadKey();
     }
@@ -43,7 +43,7 @@ public class HandleAccount
         Console.Write("Ange beloppet du vill ta ut: ");
         int.TryParse(Console.ReadLine(), out int taUtBelopp);
 
-        account.Withdraw(taUtBelopp);
+        account.Withdraw(taUtBelopp, new DateTime(2026, 3, 4));
         Console.Write("Tryck Enter för att fortsätta till menyn...");
         Console.ReadKey();
     }

@@ -9,12 +9,12 @@ public class TypeOfAccount
     {
         int selectionForAccounts = 0;
         Console.WriteLine("TYPER AV KOTON: ");
-        string[] accounts = {
+        string[] accounts = [
             "Bank Konto",
             "Uddevalla Konto",
             "Isk Konto",
             "Savings Konto",
-            "Aktie Konto" };
+            "Aktie Konto" ];
 
         ConsoleKey key;
 
@@ -43,10 +43,7 @@ public class TypeOfAccount
 
 
         Console.Clear();
-        //Console.Write("\nVilken typ av konto vill du skapa: ");
-        //var skapaKonto = Console.ReadLine();
         return selectionForAccounts.ToString();
-        //return skapaKonto;
     }
 
     public static AccountDetails ContactInput()
@@ -57,10 +54,7 @@ public class TypeOfAccount
         Console.Write("Ange Kontonummer: ");
         int.TryParse(Console.ReadLine(), out int kontoNummer);
 
-        AccountBase nyttKonto = null;
-        string kontoTyp;
-
-        return new AccountDetails { AccountName = kontoNamn, AccountNumber = kontoNummer, StartingBalance = 0 };
+        return new AccountDetails { AccountName = kontoNamn ?? "Default", AccountNumber = kontoNummer, StartingBalance = 0 };
     }
 
     public static void AddToAccontsList(Bank bank, AccountBase nyttKonto)

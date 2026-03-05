@@ -16,11 +16,11 @@ public static class AccountFactory
                     accountDetails.AccountNumber, accountDetails.StartingBalance);
 
             case AccountType.IskAccount:
-                return new UddevallaAccount(accountDetails.AccountName,
+                return new IskAccount(accountDetails.AccountName,
                     accountDetails.AccountNumber, accountDetails.StartingBalance);
 
             case AccountType.UddevallaAccount:
-                return new IskAccount(accountDetails.AccountName,
+                return new UddevallaAccount(accountDetails.AccountName,
                     accountDetails.AccountNumber, accountDetails.StartingBalance);
 
             case AccountType.SavingsAccount:

@@ -59,7 +59,9 @@ public abstract class AccountBase
                 transactionIndex++;
             }
 
-            totalInterestRate += balanceForTheDay * (InterestRate / 100 / 365);
+            var saidDaysBalance = balanceForTheDay * 100;
+
+            totalInterestRate += saidDaysBalance * (InterestRate / 100 / 365);
         }
 
         return totalInterestRate;
@@ -67,15 +69,17 @@ public abstract class AccountBase
 
     public abstract decimal Balance();
 
-    public virtual void Deposit(decimal amount)
+    public virtual bool Deposit(decimal amount, DateTime wheneverDate)
     {
         if (amount >= 10000)
         {
             Console.WriteLine("Ett fel har inträffat, Man får inte sätta in mer än 10000kr...");
+            return false;
         }
         else if (amount <= 0)
         {
             Console.WriteLine("Inkorrekt nummer, måste vara ett positiv siffra");
+            return false;
         }
         else
         {
@@ -83,14 +87,15 @@ public abstract class AccountBase
             var t = new BankTransaction
             {
                 Amount = amount,
-                TransactionalDate = DateTime.Now
+                TransactionalDate = wheneverDate
             };
 
             bankTransactions.Add(t);
+            return true;
         }
     }
 
-    public virtual void Withdraw(decimal amount)
+    public virtual void Withdraw(decimal amount, DateTime wheneverDate)
     {
         var balance = Balance();
 
@@ -109,7 +114,7 @@ public abstract class AccountBase
             {
 
                 Amount = -amount,
-                TransactionalDate = DateTime.Now
+                TransactionalDate = wheneverDate
             };
 
             bankTransactions.Add(t);

@@ -1,4 +1,4 @@
-﻿using BankApp.Types;
+﻿using Entities.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
