@@ -33,14 +33,14 @@ public class Bank
             RemoveAccount(kontoTaBort.Id);
             Console.WriteLine("Kontot har succesivt tagits bort!");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
-            Console.ReadKey();
+            //Console.ReadKey();
             return true;
         }
         else
         {
             Console.WriteLine("Det angivna kontonumret finns inte");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
-            Console.ReadKey();
+            //Console.ReadKey();
             return false;
         }
     }

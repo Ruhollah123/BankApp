@@ -38,4 +38,19 @@ public class BankTest
 
         Assert.False(result);
     }
+
+    [Fact]
+    public void Bank_InputToDeleteAccount_ReturnTrueIfTheAccountIsBeingDeleted()
+    {
+        //var bank = new Bank();
+
+        //var deletingAccount = new UddevallaAccount { d}
+
+        //bool result = bank.InputToDeleteAccount(bank);
+
+        //Assert.True(result);
+    }
+
+    //Skriv ett test som verifierar att metoden returnerar true och faktiskt tar
+    //bort ett konto när man skickar in ett giltigt objekt.
 }
