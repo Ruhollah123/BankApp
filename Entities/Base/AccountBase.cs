@@ -12,7 +12,6 @@ public abstract class AccountBase
 
     protected List<BankTransaction> bankTransactions = new List<BankTransaction>();
 
-
     public List<BankTransaction> SeedTransactions()
     {
         bankTransactions.Add(new BankTransaction { Amount = 5000, TransactionalDate = new DateTime(2025, 1, 1) });

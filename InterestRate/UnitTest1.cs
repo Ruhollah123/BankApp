@@ -57,4 +57,14 @@ public class UnitTest1
 
         Assert.NotNull(ifItReturnsAList);
     }
+
+    [Fact]
+    public void AccountBase_SeedTransactions_WetherItReturnsAListOfTransactionOrN()
+    {
+        var account = new UddevallaAccount("TheTest", 1234, 2);
+
+        var ifItReturnsAList = account.SeedTransactions();
+
+        Assert.NotNull(ifItReturnsAList);
+    }
 }

@@ -26,7 +26,7 @@ public class Bank
         return accounts;
     }
 
-    public void InputToDeleteAccount(AccountBase kontoTaBort)
+    public bool InputToDeleteAccount(AccountBase kontoTaBort)
     {
         if (kontoTaBort != null)
         {
@@ -34,12 +34,14 @@ public class Bank
             Console.WriteLine("Kontot har succesivt tagits bort!");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
             Console.ReadKey();
+            return true;
         }
         else
         {
             Console.WriteLine("Det angivna kontonumret finns inte");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
             Console.ReadKey();
+            return false;
         }
     }
 

@@ -8,7 +8,7 @@ public class TypeOfAccount
     public static string DifferentTypeOfAccounts(string input)
     {
         int selectionForAccounts = 0;
-        Console.WriteLine("TYPER AV KOTON: ");
+        Console.WriteLine("TYPER AV KONTON: ");
         string[] accounts = [
             "Bank Konto",
             "Uddevalla Konto",

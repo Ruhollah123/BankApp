@@ -13,6 +13,7 @@
     <Project Path="BankApp/BankApp.csproj" />
   </Folder>
   <Folder Name="/5.UnitTests/">
+    <Project Path="BankTest/BankTest.csproj" Id="797ec9e6-65a0-4167-8ed3-0a58232834f4" />
     <Project Path="InterestRate/InterestRate.csproj" Id="fe62e792-2760-4ef3-8422-42088cda6438" />
     <Project Path="ServiceTest2/ServiceTest2.csproj" Id="06a15361-a42b-4208-92e1-f08fb8ff144c" />
   </Folder>
