@@ -10,12 +10,13 @@ public class UddevallaAccount : AccountBase
         AccountNumber = accountNumber;
         InterestRate = interestRate;
     }
-
+    public UddevallaAccount()
+    {
+        
+    }
     public override decimal Balance()
     {
         var t = bankTransactions.Sum(x => x.Amount);
         return t + StartingBalance;
     }
-
-
 }

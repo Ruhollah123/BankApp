@@ -28,20 +28,20 @@ public class Bank
 
     public bool InputToDeleteAccount(AccountBase kontoTaBort)
     {
-        if (kontoTaBort != null)
+        if (kontoTaBort == null || !GetAccounts().Contains(kontoTaBort))
+        {
+            Console.WriteLine("Det angivna kontonumret finns inte");
+            Console.Write("Tryck Enter för att fortsätta till menyn...");
+            //Console.ReadKey();
+            return false;
+        }
+        else
         {
             RemoveAccount(kontoTaBort.Id);
             Console.WriteLine("Kontot har succesivt tagits bort!");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
             //Console.ReadKey();
             return true;
-        }
-        else
-        {
-            Console.WriteLine("Det angivna kontonumret finns inte");
-            Console.Write("Tryck Enter för att fortsätta till menyn...");
-            //Console.ReadKey();
-            return false;
         }
     }
 
@@ -159,7 +159,7 @@ public class Bank
             Console.WriteLine($"Namn: {account.AccountName}");
             Console.WriteLine($"Kontonummer: {account.AccountNumber}");
             Console.WriteLine($"Saldo: {account.Balance()}");
-            Console.WriteLine($"Ränta: {Math.Round(account.CalculateInterestRate(2025), 2)}kr"); 
+            Console.WriteLine($"Ränta: {Math.Round(account.CalculateInterestRate(2025), 2)}kr");
             Console.WriteLine("-----------------------------");
         }
     }
