@@ -1,8 +1,10 @@
 ﻿using BankApp;
+using BankApp.Factories;
 using Entities.Accounts;
 using Entities.Base;
+using Entities.Types;
+using Services.Models;
 using System.Formats.Asn1;
-using System.Xml.XPath;
 
 namespace BankTest;
 
@@ -153,7 +155,7 @@ public class BankTest
             AccountNumber = 56
         };
 
-         var result = bank.InputToDeleteAccount(deletingAccountD);
+        var result = bank.InputToDeleteAccount(deletingAccountD);
 
         Assert.False(result);
     }
@@ -196,14 +198,16 @@ public class BankTest
     [Fact]
     public void Bank_TypeOfAccountInput_ReturnIfTheAccountInputIsString()
     {
-        var bankAccounts = new AccountDetails()
+        var bank = new AccountDetails()
         {
-            AccountType = AccountType.BankAccount,
-            AccountName = "Test"
+            AccountName = "Test",
+            AccountType = AccountType.BankAccount
         };
 
-        var createdAccount = AccountFactory.CreateAccount(bankAccounts);
 
-        Assert.IsType<BankAccount>(bankAccounts);
+        var createdAccount = AccountFactory.CreateAccount(bank);
+
+        Assert.IsType<BankAccount>(createdAccount);
+
     }
 }
