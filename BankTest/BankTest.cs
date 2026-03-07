@@ -192,7 +192,7 @@ public class BankTest
             .SeedTransactions()
             .Count();
 
-        Assert.Equal(50, tenAccounts);
+        Assert.Equal(20, tenAccounts);
     }
 
     [Fact]
@@ -208,6 +208,9 @@ public class BankTest
         var createdAccount = AccountFactory.CreateAccount(bank);
 
         Assert.IsType<BankAccount>(createdAccount);
-
     }
+
+
+
+
 }

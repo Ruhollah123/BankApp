@@ -56,32 +56,32 @@ public class Bank
             switch (inputChosen)
             {
                 case 0:
-                    string skapaKonto = TypeOfAccount.DifferentTypeOfAccounts(inputChosen.ToString());
+                    string typeOfAccountInput = TypeOfAccount.DifferentTypeOfAccounts(inputChosen.ToString());
 
-                    if (skapaKonto == "0" || skapaKonto == "1" || skapaKonto == "2" || skapaKonto == "3" || skapaKonto == "4" || string.IsNullOrWhiteSpace(skapaKonto))
+                    if (typeOfAccountInput == "0" || typeOfAccountInput == "1" || typeOfAccountInput == "2" || typeOfAccountInput == "3" || typeOfAccountInput == "4" || string.IsNullOrWhiteSpace(typeOfAccountInput))
                     {
                         Console.Clear();
-                        if (skapaKonto == "0")
+                        if (typeOfAccountInput == "0")
                         {
                             Console.WriteLine("BANK KONTO");
                         }
-                        else if (skapaKonto == "1")
+                        else if (typeOfAccountInput == "1")
                         {
                             Console.WriteLine("UDDEVALLA KONTO");
                         }
-                        else if (skapaKonto == "2")
+                        else if (typeOfAccountInput == "2")
                         {
                             Console.WriteLine("ISK KONTO");
                         }
-                        else if (skapaKonto == "3")
+                        else if (typeOfAccountInput == "3")
                         {
                             Console.WriteLine("SAVINGS KONTO");
                         }
-                        else if (skapaKonto == "4")
+                        else if (typeOfAccountInput == "4")
                         {
                             Console.WriteLine("AKTIE KONTO");
                         }
-                        else if (string.IsNullOrWhiteSpace(skapaKonto))
+                        else if (string.IsNullOrWhiteSpace(typeOfAccountInput))
                         {
                             Console.WriteLine("Fel inmatning!");
                             Console.Write("Försök igen senare...");
@@ -91,7 +91,7 @@ public class Bank
 
                         var accountDetails = TypeOfAccount.ContactInput();
 
-                        switch (skapaKonto)
+                        switch (typeOfAccountInput)
                         {
                             case "1":
                                 Console.Clear();
