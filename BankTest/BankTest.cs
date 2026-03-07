@@ -176,4 +176,34 @@ public class BankTest
         bool ifStillExists = bank.GetAccounts().Any(x => x.AccountName == "deletingMe");
         Assert.False(ifStillExists);
     }
+
+
+    [Fact]
+    public void Bank_ShowBankMenu_DeleteTheAccountWhichHasTwoHundred()
+    {
+
+        var acc1 = new UddevallaAccount();
+        acc1.SeedTransactions();
+
+
+        var tenAccounts = acc1
+            .SeedTransactions()
+            .Count();
+
+        Assert.Equal(50, tenAccounts);
+    }
+
+    [Fact]
+    public void Bank_TypeOfAccountInput_ReturnIfTheAccountInputIsString()
+    {
+        var bankAccounts = new AccountDetails()
+        {
+            AccountType = AccountType.BankAccount,
+            AccountName = "Test"
+        };
+
+        var createdAccount = AccountFactory.CreateAccount(bankAccounts);
+
+        Assert.IsType<BankAccount>(bankAccounts);
+    }
 }
