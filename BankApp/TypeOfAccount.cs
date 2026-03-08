@@ -57,12 +57,12 @@ public class TypeOfAccount
         return new AccountDetails { AccountName = kontoNamn ?? "Default", AccountNumber = kontoNummer, StartingBalance = 0 };
     }
 
-    public static void AddToAccontsList(Bank bank, AccountBase nyttKonto)
+    public static void AddToAccountsList(Bank bank, AccountBase newAccount)
     {
-        bank.AddAccount(nyttKonto);
+        bank.AddAccount(newAccount);
 
         Console.WriteLine("Kontot har skapats");
         Console.Write("Tryck Enter för att fortsätta till menyn...");
-        Console.ReadKey();
+        //Console.ReadKey();
     }
 }

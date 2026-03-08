@@ -26,9 +26,9 @@ public class Bank
         return accounts;
     }
 
-    public bool InputToDeleteAccount(AccountBase kontoTaBort)
+    public bool InputToDeleteAccount(AccountBase accountToDelete)
     {
-        if (kontoTaBort == null || !GetAccounts().Contains(kontoTaBort))
+        if (accountToDelete == null || !GetAccounts().Contains(accountToDelete))
         {
             Console.WriteLine("Det angivna kontonumret finns inte");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
@@ -37,7 +37,7 @@ public class Bank
         }
         else
         {
-            RemoveAccount(kontoTaBort.Id);
+            RemoveAccount(accountToDelete.Id);
             Console.WriteLine("Kontot har succesivt tagits bort!");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
             //Console.ReadKey();
@@ -50,7 +50,7 @@ public class Bank
         bool running = true;
         while (running)
         {
-            Console.Clear();
+            //Console.Clear();
             int inputChosen = KeyboardSelection.SelectionOfTheMenu();
 
             switch (inputChosen)
@@ -85,7 +85,7 @@ public class Bank
                         {
                             Console.WriteLine("Fel inmatning!");
                             Console.Write("Försök igen senare...");
-                            Console.ReadKey();
+                            //Console.ReadKey();
                             break;
                         }
 
@@ -119,17 +119,17 @@ public class Bank
 
                         var accountJustCreated = AccountFactory.CreateAccount(accountDetails);
 
-                        TypeOfAccount.AddToAccontsList(bank, accountJustCreated);
+                        TypeOfAccount.AddToAccountsList(bank, accountJustCreated);
                     }
                     break;
 
                 case 1:
-                    bank.RemoveAccount(inputChosen.ToString());
+                    bank.RemoveAccount(inputChosen);
                     break;
 
                 case 2:
                     bank.ShowAllAccounts(inputChosen.ToString());
-                    Console.ReadKey();
+                    //Console.ReadKey();
                     break;
 
                 case 3:
@@ -164,15 +164,15 @@ public class Bank
         }
     }
 
-    public void RemoveAccount(string input)
+    public void RemoveAccount(int input)
     {
         int? taBort = DeleteAccounts.WetherAccountExists(accounts);
         if (taBort == null)
             return;
 
 
-        var kontoTaBort = accounts.FirstOrDefault(z => z.AccountNumber == taBort);
-        InputToDeleteAccount(kontoTaBort);
+        var accountToDelete = accounts.FirstOrDefault(z => z.AccountNumber == taBort);
+        InputToDeleteAccount(accountToDelete);
     }
 
     public void ManageAccounts(Bank bank)

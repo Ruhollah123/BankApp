@@ -5,6 +5,7 @@ using Entities.Base;
 using Entities.Types;
 using Services.Models;
 using System.Formats.Asn1;
+using System.Security.Principal;
 
 namespace BankTest;
 
@@ -212,5 +213,75 @@ public class BankTest
 
 
 
+    [Fact]
+    public void Bank_ShowBankMenu_IfTheTypeOfAccountInputIsAString()
+    {
+        var bank = new Bank();
 
+        Bank.ShowBankMenu(bank);
+
+        Assert.True(true);
+    }
+
+    [Fact]
+    public void Bank_ShowBankMenu_CreatingAccountsAndCountingThem()
+    {
+        var bank = new Bank();
+
+        bank.AddAccount(new UddevallaAccount());
+        bank.AddAccount(new BankAccount());
+        bank.AddAccount(new BankAccount());
+
+        var countOfAccounts = bank.GetAccounts().OfType<BankAccount>().Count();
+
+        Assert.Equal(2, countOfAccounts);
+    }
+
+
+    [Fact]
+    public void TypeOfAccount_DifferentTypeOfAccounts_ReturnsTheTypeOfAccountCreated()
+    {
+
+
+        var bank = new Bank();
+        //
+        //var theAccount = new BankAccount(); 
+        //TypeOfAccount.AddToAccountsList(bank, theAccount);
+
+        var creatingAccounts = new List<AccountBase>()
+        {
+            new UddevallaAccount(),
+            new BankAccount(),
+            new IskAccount()
+        };
+
+        foreach (var accounts in creatingAccounts)
+        {
+            TypeOfAccount.AddToAccountsList(bank, accounts);
+        }
+
+        var theAccountsList = bank.GetAccounts().Count();
+
+        Assert.Equal(3, theAccountsList);
+    }
+
+
+    [Fact]
+    public void Bank_ShowBankMenu_AddAnAccountThenDeleteIt()
+    {
+        var bank = new Bank();
+
+        var theAccount = new UddevallaAccount()
+        {
+            AccountName = "Test",
+            AccountNumber = 1,
+            InterestRate = 1,
+        };
+
+        bank.AddAccount(theAccount);
+        bank.RemoveAccount(1);
+
+
+        Assert.Empty(bank.GetAccounts());
+    }
 }

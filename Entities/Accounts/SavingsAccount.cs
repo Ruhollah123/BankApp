@@ -10,6 +10,10 @@ public class SavingsAccount : AccountBase
         AccountNumber = accountNumber;
         InterestRate = interestRate;
     }
+    public SavingsAccount()
+    {
+        
+    }
 
     public override decimal Balance()
     {

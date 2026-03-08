@@ -16,7 +16,7 @@ public class KeyboardSelection
 
         do
         {
-            Console.Clear();
+            //Console.Clear();
             for (int i = 0; i < options.Length; i++)
             {
                 Console.SetCursorPosition(0, i);

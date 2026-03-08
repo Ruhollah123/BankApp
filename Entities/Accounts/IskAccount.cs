@@ -10,6 +10,10 @@ public class IskAccount : AccountBase
         AccountNumber = accountNumber;
         InterestRate = interestRate;
     }
+    public IskAccount()
+    {
+        
+    }
     public override decimal Balance()
     {
         var t = bankTransactions.Sum(x => x.Amount);
