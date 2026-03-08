@@ -20,7 +20,7 @@ public class DeleteAccounts
             Console.WriteLine($"Kontonamn: {konto.AccountName}, Kontonummer: {konto.AccountNumber}");
         }
 
-        //Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
+        Console.Write("\nAnge vilket konto du vill ta bort genom att skriva dess Kontonummer: ");
         int.TryParse(Console.ReadLine(), out int taBort);
         return taBort;
     }

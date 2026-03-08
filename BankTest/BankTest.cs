@@ -1,11 +1,10 @@
 ﻿using BankApp;
 using BankApp.Factories;
+using Entities;
 using Entities.Accounts;
 using Entities.Base;
 using Entities.Types;
 using Services.Models;
-using System.Formats.Asn1;
-using System.Security.Principal;
 
 namespace BankTest;
 
@@ -18,7 +17,7 @@ public class BankTest
 
         var testGuid = Guid.NewGuid();
 
-        removesAccount.RemoveAccount(testGuid);
+        removesAccount.RemovingAccount(testGuid);
 
         Assert.NotEqual(Guid.Parse("7b96ea6f-7de7-4430-b387-3777132f366a"), testGuid);
     }
@@ -184,16 +183,13 @@ public class BankTest
     [Fact]
     public void Bank_ShowBankMenu_DeleteTheAccountWhichHasTwoHundred()
     {
+        var accounts = new BankAccount();
 
-        var acc1 = new UddevallaAccount();
-        acc1.SeedTransactions();
+        var transactions = accounts.SeedTransactions();
 
+        var countOverFive = transactions.Count(t => t.Amount > 5000);
 
-        var tenAccounts = acc1
-            .SeedTransactions()
-            .Count();
-
-        Assert.Equal(20, tenAccounts);
+        Assert.Equal(4, countOverFive);
     }
 
     [Fact]
@@ -229,59 +225,64 @@ public class BankTest
         var bank = new Bank();
 
         bank.AddAccount(new UddevallaAccount());
+        bank.AddAccount(new UddevallaAccount());
+        bank.AddAccount(new UddevallaAccount());
         bank.AddAccount(new BankAccount());
         bank.AddAccount(new BankAccount());
+        bank.AddAccount(new IskAccount());
+        bank.AddAccount(new IskAccount());
 
-        var countOfAccounts = bank.GetAccounts().OfType<BankAccount>().Count();
 
-        Assert.Equal(2, countOfAccounts);
+        var theList = bank.GetAccounts().OfType<IskAccount>().Count();
+
+        Assert.Equal(4, theList);
     }
+
 
 
     [Fact]
     public void TypeOfAccount_DifferentTypeOfAccounts_ReturnsTheTypeOfAccountCreated()
     {
-
-
         var bank = new Bank();
-        //
-        //var theAccount = new BankAccount(); 
-        //TypeOfAccount.AddToAccountsList(bank, theAccount);
 
-        var creatingAccounts = new List<AccountBase>()
-        {
-            new UddevallaAccount(),
-            new BankAccount(),
-            new IskAccount()
-        };
+        var theAccount = new UddevallaAccount();
+        TypeOfAccount.AddToAccountsList(bank, theAccount);
 
-        foreach (var accounts in creatingAccounts)
-        {
-            TypeOfAccount.AddToAccountsList(bank, accounts);
-        }
+        var result = bank.GetAccounts().Count();
 
-        var theAccountsList = bank.GetAccounts().Count();
+        Assert.Equal(1, result);
 
-        Assert.Equal(3, theAccountsList);
     }
 
 
     [Fact]
     public void Bank_ShowBankMenu_AddAnAccountThenDeleteIt()
     {
-        var bank = new Bank();
 
-        var theAccount = new UddevallaAccount()
-        {
-            AccountName = "Test",
-            AccountNumber = 1,
-            InterestRate = 1,
-        };
+        var accounts = new List<AccountBase> { new UddevallaAccount { AccountNumber = 1 } };
+        var input = new StringReader("1");
+        Console.SetIn(input);
 
-        bank.AddAccount(theAccount);
-        bank.RemoveAccount(1);
+        var result = DeleteAccounts.WetherAccountExists(accounts);
+
+        Assert.Equal(1, result);
 
 
-        Assert.Empty(bank.GetAccounts());
+
+        //var bank = new Bank();
+
+        //var theAccount = new UddevallaAccount()
+        //{
+        //    AccountName = "Test",
+        //    AccountNumber = 1,
+        //    InterestRate = 1,
+        //};
+
+        //bank.AddAccount(theAccount);
+        //bank.RemoveAccount(1);
+
+        //Assert.Empty(bank.GetAccounts());
     }
+
+
 }

@@ -11,7 +11,7 @@ public class Bank
         accounts.Add(account);
     }
 
-    public void RemoveAccount(Guid accountId)
+    public void RemovingAccount(Guid accountId)
     {
         var account = accounts.FirstOrDefault(x => x.Id == accountId);
 
@@ -37,7 +37,7 @@ public class Bank
         }
         else
         {
-            RemoveAccount(accountToDelete.Id);
+            RemovingAccount(accountToDelete.Id);
             Console.WriteLine("Kontot har succesivt tagits bort!");
             Console.Write("Tryck Enter för att fortsätta till menyn...");
             //Console.ReadKey();
