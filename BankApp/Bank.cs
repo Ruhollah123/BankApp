@@ -145,7 +145,7 @@ public class Bank
 
     public void ShowAllAccounts(string input)
     {
-        Console.Clear();
+        //Console.Clear();
         if (!accounts.Any())
         {
             Console.WriteLine("Du har inga aktiva konton än");
@@ -169,7 +169,6 @@ public class Bank
         int? taBort = DeleteAccounts.WetherAccountExists(accounts);
         if (taBort == null)
             return;
-
 
         var accountToDelete = accounts.FirstOrDefault(z => z.AccountNumber == taBort);
         InputToDeleteAccount(accountToDelete);

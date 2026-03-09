@@ -1,6 +1,5 @@
 ﻿using BankApp;
 using BankApp.Factories;
-using Entities;
 using Entities.Accounts;
 using Entities.Base;
 using Entities.Types;
@@ -284,5 +283,60 @@ public class BankTest
         //Assert.Empty(bank.GetAccounts());
     }
 
+    [Fact]
+    public void Bank_ShowAllAccounts_WetherTheActualAccountIsBeingShown()
+    {
+        var bank = new Bank();
 
+        var theAccount = new UddevallaAccount
+        {
+            AccountName = "Test",
+            AccountNumber = 1,
+            InterestRate = 2
+        };
+
+        bank.AddAccount(theAccount);
+
+        bank.ShowAllAccounts("1");
+
+
+        var result = bank.GetAccounts().Count();
+
+        Assert.Equal(1, result);
+    }
+
+    [Fact]
+    public void Bank_RemoveAccount_WhatHappensIfAccountIsNull()
+    {
+        var bank = new Bank();
+
+        var listOfAccounts = new List<AccountBase> {
+
+            new UddevallaAccount { AccountName = "Aron", AccountNumber = 2, InterestRate = 2},
+            new UddevallaAccount { AccountName = "Karin", AccountNumber = 3, InterestRate = 4},
+            new UddevallaAccount { AccountName = "Nia", AccountNumber = 4, InterestRate = 3},
+        };
+
+        var input = new StringReader("2");
+        Console.SetIn(input);
+
+
+        foreach (var accounts in listOfAccounts)
+        {
+            bank.AddAccount(accounts);
+        }
+
+        bank.RemoveAccount(2);
+
+        var accountToDelete = listOfAccounts.Where(x => x.AccountNumber == 2);
+
+        Assert.DoesNotContain(bank.GetAccounts(), x => x.AccountNumber == 2);
+    }
+
+
+    [Fact]
+    public void Bank_RemoveAccount_WhatHappensWhenAccountIsNull()
+    {
+
+    }
 }
